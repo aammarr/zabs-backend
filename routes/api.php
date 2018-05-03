@@ -49,6 +49,10 @@ Route::group(['prefix'=>'user','middleware'=>'ApiAuth','namespace'=>'Api'],funct
     Route::post('/cart','CartController@postCart');
     Route::delete('/cart/{cart_id}','CartController@destroy');
 
+    Route::get('/{vendor_id}/orders','OrderController@getOrders');
+    Route::post('/{vendor_id}/order','OrderController@postOrder');
+
+
     Route::get('/faqs','UserController@faqs');
     Route::get('/tnc','UserController@tnc');
     Route::get('/privacyPolicy','UserController@privacy_policy');
