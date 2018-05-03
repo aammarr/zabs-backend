@@ -1,0 +1,30 @@
+@font-face {
+    font-family: "montserratregular";
+    font-style: normal;
+    font-weight: normal;
+    src: url("../fonts/montserrat-regular-webfontd41d.html?#iefix") format("embedded-opentype"), url("../fonts/montserrat-regular-webfont.html") format("woff2"), url("../fonts/montserrat-regular-webfont-2.html") format("woff"), url("../fonts/montserrat-regular-webfont-3.html") format("truetype"), url("../fonts/montserrat-regular-webfont-4.html#montserratregular") format("svg");
+}
+@font-face {
+    font-family: "montserratbold";
+    font-style: normal;
+    font-weight: normal;
+    src: url("../fonts/montserrat-bold-webfontd41d.html?#iefix") format("embedded-opentype"), url("../fonts/montserrat-bold-webfont.html") format("woff2"), url("../fonts/montserrat-bold-webfont-2.html") format("woff"), url("../fonts/montserrat-bold-webfont-3.html") format("truetype"), url("../fonts/montserrat-bold-webfont-4.html#montserratbold") format("svg");
+}
+@font-face {
+    font-family: "montserratlight";
+    font-style: normal;
+    font-weight: normal;
+    src: url("../fonts/montserrat-light-webfontd41d.html?#iefix") format("embedded-opentype"), url("../fonts/montserrat-light-webfont.html") format("woff2"), url("../fonts/montserrat-light-webfont-2.html") format("woff"), url("../fonts/montserrat-light-webfont-3.html") format("truetype"), url("../fonts/montserrat-light-webfont-4.html#montserratlight") format("svg");
+}
+@font-face {
+    font-family: "montserrathairline";
+    font-style: normal;
+    font-weight: normal;
+    src: url("../fonts/montserrat-hairline-webfontd41d.html?#iefix") format("embedded-opentype"), url("../fonts/montserrat-hairline-webfont.html") format("woff2"), url("../fonts/montserrat-hairline-webfont-2.html") format("woff"), url("../fonts/montserrat-hairline-webfont-3.html") format("truetype"), url("../fonts/montserrat-hairline-webfont-4.html#montserrathairline") format("svg");
+}
+@font-face {
+    font-family: "montserratblack";
+    font-style: normal;
+    font-weight: normal;
+    src: url("../fonts/montserrat-black-webfontd41d.html?#iefix") format("embedded-opentype"), url("../fonts/montserrat-black-webfont.html") format("woff2"), url("../fonts/montserrat-black-webfont-2.html") format("woff"), url("../fonts/montserrat-black-webfont-3.html") format("truetype"), url("../fonts/montserrat-black-webfont-4.html#montserratblack") format("svg");
+}

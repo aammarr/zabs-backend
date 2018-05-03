@@ -1,0 +1,23 @@
+div.jumbotron.hero-travel {
+  color:#fff;
+  text-align:center;
+  background:url('../../assets/img/hero-background-travel.jpg');
+  background-size:cover;
+  background-position:center;
+  padding-top:4%;
+  padding-bottom:10%;
+  margin-top:0px;
+}
+
+h1.hero-title, h2.hero-title, h3.hero-title {
+  text-shadow:0 3px 3px rgba(0,0,0,0.4);
+  color:#fff;
+  width:100%;
+}
+
+p.hero-subtitle {
+  max-width:600px;
+  margin:25px auto;
+  color:#fff;
+}
+
