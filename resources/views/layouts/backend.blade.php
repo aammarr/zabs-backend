@@ -105,12 +105,12 @@
         <!-- Scripts -->
         <script src="<?php echo URL::to('/'); ?>/js/app.js"></script>
 
-        <script language="javascript" type="text/javascript">
+        <!-- <script language="javascript" type="text/javascript">
             
             setTimeout(function() {
                 location.reload();
             }, 10000);
-        </script>
+        </script> -->
 
         <script type="text/javascript">
             $(function () {
