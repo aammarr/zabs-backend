@@ -26,11 +26,12 @@
 
                         <br/>
                         <br/>
-                        <div class="table-responsive">
+                        <div class="">
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <!-- <th>ID</th> -->
+                                        <th>Avatar</th>
                                         <th>Name</th>
                                         <th>Actions</th>
                                     </tr>
@@ -38,7 +39,20 @@
                                 <tbody>
                                 @foreach($category as $item)
                                     <tr>
-                                        <td>{{ $item->id }}</td>
+                                        <!-- <td>{{ $item->id }}</td> -->
+                                        <td>
+                                            <a class="thumnail" href="{{ $item->category_avatar }}" target="_blank">
+                                                <img src="{{ $item->category_avatar }}" class="img-circle" style="height: 100px;width: 100px;">
+                                            </a>
+                                        </td>
+                                        <!-- <td>
+                                            <a class="thumbnail" href="{{ $item->category_avatar }}"><img src="{{ $item->category_avatar }}" width="100px" height="66px" border="0" />
+                                                <span>
+                                                    <img src="{{ $item->category_avatar }}" />
+                                                </span>
+                                            </a>
+                                        </td> -->
+
                                         <td>{{ $item->category_name }}</td>
                                         <td>
                                             <a href="{{ url('/admin/category/' . $item->id) }}" title="View Category"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>

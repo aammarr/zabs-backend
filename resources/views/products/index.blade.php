@@ -30,6 +30,7 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
+                                        <th>Avatar</th>
                                         <th>Name</th>
                                         <th>Description</th>
                                         <th>Price</th>
@@ -39,6 +40,11 @@
                                 <tbody>
                                 @foreach($products as $item)
                                     <tr>
+                                        <td>
+                                            <a class="thumnail" href="{{ $item->product_pic_1 }}" target="_blank">
+                                                <img src="{{ $item->product_pic_1 }}" class="img-circle" style="height: 100px;width: 100px;">
+                                            </a>
+                                        </td>
                                         <td>{{ $item->product_name }}</td>
                                         <td>{{ $item->product_description }}</td>
                                         <td>{{ "PKR ".$item->product_price }}</td>

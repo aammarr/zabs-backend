@@ -30,7 +30,7 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>Avatar</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Actions</th>
@@ -39,7 +39,11 @@
                                 <tbody>
                                 @foreach($user as $item)
                                     <tr>
-                                        <td>{{ $item->id }}</td>
+                                        <td>
+                                            <a class="thumnail" href="{{ $item->avatar }}" target="_blank">
+                                                <img src="{{ $item->avatar }}" class="img-circle" style="height: 100px;width: 100px;">
+                                            </a>
+                                        </td>
                                         <td>{{ $item->first_name." ".$item->last_name }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>

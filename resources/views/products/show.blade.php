@@ -51,23 +51,33 @@
                                     </tr>
                                     <tr>
                                         <th> Picture 1 </th>
-                                        <td> {{ $product->product_pic_1 }} </td>
+                                        <td>  <a class="thumnail" href="{{ $product->product_pic_1 }}" target="_blank">
+                                                <img src="{{ $product->product_pic_1 }}" class="img-circle" style="height: 100px;width: 100px;">
+                                            </a> </td>
                                     </tr>
                                     <tr>
-                                        <th> Picture 2 </th>
-                                        <td> {{ $product->product_pic_2 }} </td>
+                                        <th> Picture 1 </th>
+                                        <td>  <a class="thumnail" href="{{ $product->product_pic_2 }}" target="_blank">
+                                                <img src="{{ $product->product_pic_2 }}" class="img-circle" style="height: 100px;width: 100px;">
+                                            </a> </td>
                                     </tr>
                                     <tr>
-                                        <th> Picture 3 </th>
-                                        <td> {{ $product->product_pic_3 }} </td>
+                                        <th> Picture 1 </th>
+                                        <td>  <a class="thumnail" href="{{ $product->product_pic_3 }}" target="_blank">
+                                                <img src="{{ $product->product_pic_3 }}" class="img-circle" style="height: 100px;width: 100px;">
+                                            </a> </td>
                                     </tr>
                                     <tr>
-                                        <th> Picture 4 </th>
-                                        <td> {{ $product->product_pic_4 }} </td>
+                                        <th> Picture 1 </th>
+                                        <td>  <a class="thumnail" href="{{ $product->product_pic_4 }}" target="_blank">
+                                                <img src="{{ $product->product_pic_4 }}" class="img-circle" style="height: 100px;width: 100px;">
+                                            </a> </td>
                                     </tr>
                                     <tr>
-                                        <th> Picture 5 </th>
-                                        <td> {{ $product->product_pic_5 }} </td>
+                                        <th> Picture 1 </th>
+                                        <td>  <a class="thumnail" href="{{ $product->product_pic_5 }}" target="_blank">
+                                                <img src="{{ $product->product_pic_5 }}" class="img-circle" style="height: 100px;width: 100px;">
+                                            </a> </td>
                                     </tr>
 
                                 </tbody>
