@@ -59,7 +59,7 @@ class OrderController extends Controller
         $cartIds = $request->cart_ids;
         
 
-        foreach($cartIds as $c){
+        /*foreach($cartIds as $c){
             $cart       = Cart::find($c);
             if($cart === NULL){
 
@@ -69,7 +69,7 @@ class OrderController extends Controller
                 
                 dd("Not empty");
             }
-        }
+        }*/
 
 
 
@@ -114,6 +114,7 @@ class OrderController extends Controller
 
             $totalPrice = $totalPrice + $op->price;
             $o->total_amount = $totalPrice;
+            
             $cart->delete();
         }
         $o->save();

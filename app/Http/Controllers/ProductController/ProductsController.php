@@ -107,7 +107,8 @@ class ProductsController extends Controller
                 $product_pic_2 = $nameAvatar;
             }
 
-        }else{
+        }
+        else{
             $product_pic_2=null;
         }
 

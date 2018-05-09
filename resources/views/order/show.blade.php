@@ -4,12 +4,6 @@
         <div class="row">
             @include('admin.sidebar')
 
-
-            <style type="text/css">
-                .seperate_custom {border-bottom: 1px solid black; padding-bottom: 7% !important;}
-            </style>
-
-
             <div class="col-md-9">
                 <div class="panel panel-default">
                     <div class="panel-heading">Order Details {{-- {{ $order[0]->order_id }} --}}</div>
@@ -67,17 +61,17 @@
                             </tr>
                           @endforeach
 
-                          <tr>
-                                    <th colspan="4"><span class="pull-left"></span></th>
-                                    <th>Delivery Charges</th>
-                                    <th>PKR {{ number_format($order[$key]->delivery_charges,2,",",".") }}/= </td></th>
-                                </tr>
+                            <tr>
+                                <th colspan="4"><span class="pull-left"></span></th>
+                                <th>Delivery Charges</th>
+                                <th>PKR {{ number_format($order[$key]->delivery_charges,2,",",".") }}/= </td></th>
+                            </tr>
 
-                                <tr>
-                                    <th colspan="4"><span class="pull-left"></span></th>
-                                    <th>Amount</th>
-                                    <th>PKR {{ number_format($order[$key]->total_amount,2,",",".") }}/= </td></th>
-                                </tr>
+                            <tr>
+                                <th colspan="4"><span class="pull-left"></span></th>
+                                <th>Amount</th>
+                                <th>PKR {{ number_format($order[$key]->total_amount,2,",",".") }}/= </td></th>
+                            </tr>
 
                         </table>
                         </div>

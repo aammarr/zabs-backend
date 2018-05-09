@@ -65,7 +65,7 @@ class ProductController extends Controller
         
         $p = new Product();
         $response = $p->getProductByProductId($vendor_id,$product_id);  
-        
+    
         if($response){
             return $this->sendResponse(Config::get('constants.status.OK'),$response, null);
         }

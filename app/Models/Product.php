@@ -51,7 +51,8 @@ class Product extends Model
     public function getProductByProductId($vendor_id,$product_id){
 
     	$data = DB::table('products as p')
-    			->where('p.vendor_id',$vendor_id)
+                ->where('p.vendor_id',$vendor_id)
+    			->where('p.id',$vendor_id)
     			->select(
                     'p.id',
                     'p.product_name',

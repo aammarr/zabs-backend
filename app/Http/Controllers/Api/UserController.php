@@ -56,6 +56,9 @@ class UserController extends Controller
 
         try{
 
+            $avatarfile = "user.png";
+            $nameAvatar = url('images/').'/'.$avatarfile;
+
             $u = new User;
             $u->email           = Input::get('email');
             $u->password        = bcrypt(Input::get('password'));
@@ -65,6 +68,7 @@ class UserController extends Controller
             $u->role_id         = '3';
             $u->city            = Input::get('city');
             $u->country         = Input::get('country');
+            $u->avatar          = $nameAvatar;
             
             $u->device          = $request->header('client-id');
             $u->access_token    = uniqid();
@@ -77,6 +81,7 @@ class UserController extends Controller
             $response['phone']          = $u->phone;
             $response['city']           = $u->city;
             $response['country']        = $u->country;
+            $response['avatar']         = $u->avatar;
 
 
             return $this->sendResponse(Config::get('constants.status.OK'),$response, null);

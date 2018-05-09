@@ -23,15 +23,6 @@ Auth::routes();
 
 // });
 
-
-Route::get('/excise', function(){
-	dd('excise');
-});
-
-Route::get('/sales_center', function(){
-	dd('sales center');
-});
-
 Route::get('/home', 'Admin\AdminController@index');
 
 Route::get('admin', 'Admin\AdminController@index');

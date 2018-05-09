@@ -9,9 +9,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Order</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/order/create') }}" class="btn btn-success btn-sm" title="Add New Order">
+                        <!-- <a href="{{ url('/admin/order/create') }}" class="btn btn-success btn-sm" title="Add New Order">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
-                        </a>
+                        </a> -->
 
                         {!! Form::open(['method' => 'GET', 'url' => '/admin/order', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
                         <div class="input-group">
@@ -26,7 +26,7 @@
 
                         <br/>
                         <br/>
-                        <div class="table-responsive">
+                        <div class="">
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
@@ -44,8 +44,9 @@
                                         <td>{{ "PKR ".$item->total_amount }}</td>
                                         <td>
                                             <a href="{{ url('/admin/order/' . $item->id) }}" title="View Order"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                            <!-- <a href="{{ url('/admin/order/' . $item->id . '/edit') }}" title="Edit Order"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
-                                            {!! Form::open([
+                                            <a href="{{ url('/admin/order/' . $item->id . '/accept') }}" title="Accept Order"><button class="btn btn-success btn-xs"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Accept</button></a>
+                                            <a href="{{ url('/admin/order/' . $item->id . '/reject') }}" title="Reject Order"><button class="btn btn-danger btn-xs"><i class="fa fa-minus-square-o" aria-hidden="true"></i> Reject</button></a>
+                                            <!--{!! Form::open([
                                                 'method'=>'DELETE',
                                                 'url' => ['/admin/order', $item->id],
                                                 'style' => 'display:inline'
