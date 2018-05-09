@@ -12,7 +12,7 @@
 
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Order {{ $order[0]->order_id }}</div>
+                    <div class="panel-heading">Order Details {{-- {{ $order[0]->order_id }} --}}</div>
                     <div class="panel-body">
 
                         <a href="{{ url('/admin/order') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
@@ -32,64 +32,80 @@
                         <br/>
                         <br/>
 
+                        
+
                         <div class="table-responsive">
-                            <table class="table table-borderless">
-                                <tbody>
-                            @foreach($order as $key => $value)
-                                <tr>
-                                    <th> Product Picture </th>
-                                    <td> <img class="img-circle" src="<?php echo $order[$key]->product_pic_1;?>" height="100" width="100"> </td>
-                                </tr>
-                                <tr>
-                                    <th> Product Name </th>
-                                    <td> {{ $order[$key]->product_name }} </td>
-                                </tr>
-                                <tr>
-                                    <th> Product Description </th>
-                                    <td> {{ $order[$key]->product_description }} </td>
-                                </tr>
-                                <tr>
-                                    <th> Quantity </th>
-                                    <td> {{ " x ".$order[$key]->quantity }} </td>
-                                </tr>
-                                 <tr>
-                                    <th> Price </th>
-                                    <td> {{ $order[$key]->product_price }} </td>
-                                </tr>
-                                <tr>
-                                    <th class="seperate_custom"> Product Amount </th>
-                                    <td class="seperate_custom"> {{ $order[$key]->product_price." x ".$order[$key]->quantity." = ".$order[$key]->total_price ." PKR"}} </td>
-                                </tr>
+
+                        <table class="table table-hover table-responsive table-bordered">
+                          <thead>
+                             <tr>
+                                <th>Picture</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total Amount</th>
+                             </tr>
+                          </thead>
+
+                          @foreach($order as $key => $value)
+
+                            <tr>
+                                <td> <img class="img-circle" src="<?php echo $order[$key]->product_pic_1;?>" height="50" width="50  "> </td>
+
+                                <td> {{ $order[$key]->product_name }} </td>
+
+                                <td> {{ $order[$key]->product_description }} </td>
+
+                                <td>{{ $order[$key]->quantity }} </td>
+
+                                <td> {{ number_format($order[$key]->product_price,2,",",".")  }}/=  </td>
+
+                                <td> {{ number_format($order[$key]->product_price* $order[$key]->quantity,2,",",".") }}/= </td>
                                 
-                            @endforeach
+
+                            </tr>
+                          @endforeach
+
+                          <tr>
+                                    <th colspan="4"><span class="pull-left"></span></th>
+                                    <th>Delivery Charges</th>
+                                    <th>PKR {{ number_format($order[$key]->delivery_charges,2,",",".") }}/= </td></th>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="4"><span class="pull-left"></span></th>
+                                    <th>Amount</th>
+                                    <th>PKR {{ number_format($order[$key]->total_amount,2,",",".") }}/= </td></th>
+                                </tr>
+
+                        </table>
+                        </div>
+
+                        
+
+                        <div class="table-responsive">
+
+                            <h2>Customer Information</h2>
+
+                            <table class="table table-hover table-responsive table-bordered">
+                                <tbody>
+                            
                                <tr>
-                                    <th> Name </th>
-                                    <td> {{ $order[$key]->name }} </td>
-                                </tr>
-                                <tr>
+                                    <th>Customer Name</th>
                                     <th>Phone</th>
-                                    <td>{{ $order[$key]->phone }}</td>
-                                </tr>
-                                <tr>
                                     <th>Address</th>
-                                    <td>{{ $order[$key]->address }}</td>
-                                </tr>
-                                <tr>
                                     <th>Note</th>
-                                    <td>{{ $order[$key]->note }}</td>
+                                    <th>Order Time</th>
+                                    
                                 </tr>
                                 <tr>
-                                    <th>Order Time</th>
+                                    <td> {{ $order[$key]->name }} </td>
+                                    <td>{{ $order[$key]->phone }}</td>
+                                    <td>{{ $order[$key]->address }}</td>
+                                    <td>{{ $order[$key]->note }}</td>
                                     <td>{{ date("M-d-Y H:i:s D" ,strtotime($order[$key]->order_time)) }}</td>
                                 </tr>
-                                <tr>
-                                    <th> Delivery Charges </th>
-                                    <td> {{ $order[$key]->delivery_charges." PKR" }} </td>
-                                </tr>
-                                <tr>
-                                    <th class="seperate_custom"> Total Amount </th>
-                                    <td class="seperate_custom"> {{ $order[$key]->total_amount." PKR" }} </td>
-                                </tr> 
                                 </tbody>
                             </table>
                         </div>

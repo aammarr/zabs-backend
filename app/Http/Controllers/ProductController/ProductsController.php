@@ -234,15 +234,99 @@ class ProductsController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-			'product_name' => 'required',
-			'product_description' => 'required',
-			'product_price' => 'required',
-			'product_pic_1' => 'required'
-		]);
+            'product_name' => 'required',
+            'product_description' => 'required',
+            'product_price' => 'required'
+        ]);
         $requestData = $request->all();
         
-        $product = Product::findOrFail($id);
-        $product->update($requestData);
+        $product = Product::find($id);
+
+
+        if(Input::file('product_pic_1')){
+            $avatarDocument = Input::file('product_pic_1');
+            $avatarfile = time() ."." . $avatarDocument->getClientOriginalExtension();
+            $nameAvatar = url('images/products').'/1'.$avatarfile;
+            $pathAvatar = $nameAvatar;
+            
+            if(Input::file('product_pic_1')->move('images/products/', $pathAvatar)) {
+
+                $product_pic_1 = $nameAvatar;
+            }
+
+        }else{
+            $product_pic_1=$product->product_pic_1;
+        }
+
+        if(Input::file('product_pic_2')){
+            $avatarDocument = Input::file('product_pic_2');
+            $avatarfile = time() ."." . $avatarDocument->getClientOriginalExtension();
+            $nameAvatar = url('images/products').'/2'.$avatarfile;
+            $pathAvatar = $nameAvatar;
+            
+            if(Input::file('product_pic_2')->move('images/products/', $pathAvatar)) {
+
+                $product_pic_2 = $nameAvatar;
+            }
+
+        }else{
+            $product_pic_2=$product->product_pic_2;
+        }
+
+        if(Input::file('product_pic_3')){
+            $avatarDocument = Input::file('product_pic_3');
+            $avatarfile = time() ."." . $avatarDocument->getClientOriginalExtension();
+            $nameAvatar = url('images/products').'/3'.$avatarfile;
+            $pathAvatar = $nameAvatar;
+            
+            if(Input::file('product_pic_3')->move('images/products/', $pathAvatar)) {
+
+                $product_pic_3 = $nameAvatar;
+            }
+
+        }else{
+            $product_pic_3=$product->product_pic_3;
+        }
+
+        if(Input::file('product_pic_4')){
+            $avatarDocument = Input::file('product_pic_4');
+            $avatarfile = time() ."." . $avatarDocument->getClientOriginalExtension();
+            $nameAvatar = url('images/products').'/4'.$avatarfile;
+            $pathAvatar = $nameAvatar;
+            
+            if(Input::file('product_pic_4')->move('images/products/', $pathAvatar)) {
+
+                $product_pic_4 = $nameAvatar;
+            }
+
+        }else{
+            $product_pic_4=$product->product_pic_4;
+        }
+
+        if(Input::file('product_pic_5')){
+            $avatarDocument = Input::file('product_pic_5');
+            $avatarfile = time() ."." . $avatarDocument->getClientOriginalExtension();
+            $nameAvatar = url('images/products').'/5'.$avatarfile;
+            $pathAvatar = $nameAvatar;
+            
+            if(Input::file('product_pic_5')->move('images/products/', $pathAvatar)) {
+
+                $product_pic_5 = $nameAvatar;
+            }
+
+        }else{
+            $product_pic_5=$product->product_pic_5;
+        }
+
+        
+        $product->product_pic_1 = $product_pic_1;
+        $product->product_pic_2 = $product_pic_2;
+        $product->product_pic_3 = $product_pic_3;
+        $product->product_pic_4 = $product_pic_4;
+        $product->product_pic_5 = $product_pic_5;
+        $product->save();
+
+        // $product->update($requestData);
 
         return redirect('admin/products')->with('flash_message', 'Product updated!');
     }
