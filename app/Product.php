@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Log;
+use DB;
 
 class Product extends Model
 {
+    use SoftDeletes;
     /**
      * The database table used by the model.
      *

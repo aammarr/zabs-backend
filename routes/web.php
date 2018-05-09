@@ -52,3 +52,4 @@ Route::resource('admin/test', 'TestController\\TestController');
 Route::resource('admin/user', 'UserController\\UserController');
 Route::resource('admin/category', 'CategoryController\\CategoryController');
 Route::resource('admin/products', 'ProductController\\ProductsController');
+Route::resource('admin/order', 'OrderController\\OrderController');
