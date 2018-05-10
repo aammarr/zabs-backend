@@ -5,6 +5,9 @@ namespace App\Http\Controllers\UserController;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use DB;
+use Auth;
+use Config;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -19,14 +22,33 @@ class UserController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 25;
+        $vendor_id = Auth::user()->vendor_id;
+
 
         if (!empty($keyword)) {
-            $user = User::where('first_name', 'LIKE', "%$keyword%")
+
+            /*$user = User::where('of_vendor',$vendor_id)->where('role_id',3)
+                ->orwhere('first_name', 'LIKE', "%$keyword%")
                 ->orwhere('last_name', 'LIKE', "%$keyword%")
-				->orWhere('email', 'LIKE', "%$keyword%")->orderBy('created_at','desc')
-				->paginate($perPage);
+                ->orWhere('email', 'LIKE', "%$keyword%")
+                ->orderBy('created_at','desc')
+                ->paginate($perPage);*/
+
+
+            $user = User::where('role_id',3)
+                ->where('of_vendor',2)
+                ->where(function($q) use ($keyword){
+                    $q->where('first_name','like','%'.$keyword.'%')
+                    ->orwhere('last_name','like','%'.$keyword.'%')
+                    ->orwhere('email','like','%'.$keyword.'%');
+                })
+                ->orderBy('created_at','desc')
+                ->paginate($perPage);
+                    
+            
         } else {
-            $user = User::where('role_id','3')->paginate($perPage);
+            $user = User::where('role_id','3')->where('of_vendor',$vendor_id)->paginate($perPage);
+
         }
 
         return view('user.index', compact('user'));
@@ -68,7 +90,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::find($id);
 
         return view('user.show', compact('user'));
     }

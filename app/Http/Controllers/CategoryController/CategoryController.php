@@ -21,12 +21,14 @@ class CategoryController extends Controller
     {   
         $keyword = $request->get('search');
         $perPage = 25;
+        $vendor_id = Auth::user()->vendor_id;
+
 
         if (!empty($keyword)) {
-            $category = Category::where('category_name', 'LIKE', "%$keyword%")
+            $category = Category::where('vendor_id',$vendor_id)->where('category_name', 'LIKE', "%$keyword%")
 				->paginate($perPage);
         } else {
-            $category = Category::paginate($perPage);
+            $category = Category::where('vendor_id',$vendor_id)->paginate($perPage);
         }
 
         return view('category.index', compact('category'));

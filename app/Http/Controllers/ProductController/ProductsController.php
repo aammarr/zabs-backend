@@ -25,9 +25,10 @@ class ProductsController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 25;
+        $vendor_id = Auth::user()->vendor_id;
 
         if (!empty($keyword)) {
-            $products = Product::where('product_name', 'LIKE', "%$keyword%")
+            /*$products = Product::where('vendor_id',$vendor_id)->orwhere('product_name', 'LIKE', "%$keyword%")
 				->orWhere('product_description', 'LIKE', "%$keyword%")
 				->orWhere('product_price', 'LIKE', "%$keyword%")
 				->orWhere('product_pic_1', 'LIKE', "%$keyword%")
@@ -35,13 +36,29 @@ class ProductsController extends Controller
 				->orWhere('product_pic_3', 'LIKE', "%$keyword%")
 				->orWhere('product_pic_4', 'LIKE', "%$keyword%")
 				->orWhere('product_pic_5', 'LIKE', "%$keyword%")
-				->paginate($perPage);
+				->paginate($perPage);*/
+
+            $products = Product::where('vendor_id',$vendor_id)
+                        ->where(function($q) use ($keyword){
+                            $q->orwhere('product_name', 'LIKE', "%$keyword%")
+                                ->orWhere('product_description', 'LIKE', "%$keyword%")
+                                ->orWhere('product_price', 'LIKE', "%$keyword%")
+                                ->orWhere('product_pic_1', 'LIKE', "%$keyword%")
+                                ->orWhere('product_pic_2', 'LIKE', "%$keyword%")
+                                ->orWhere('product_pic_3', 'LIKE', "%$keyword%")
+                                ->orWhere('product_pic_4', 'LIKE', "%$keyword%")
+                                ->orWhere('product_pic_5', 'LIKE', "%$keyword%");
+                        })
+                        ->orderBy('created_at','desc')
+                ->paginate($perPage);
+
         } else {
             // $products = Product::paginate($perPage);
 
             $products = DB::table('products as p')
                         ->leftJoin('category as c','c.id','p.category_id')
                         ->where('p.deleted_at',null)
+                        ->where('p.vendor_id',$vendor_id)
                         ->select('p.*','c.category_name')
                         ->orderBy('p.created_at','desc')
                         ->paginate($perPage);
@@ -57,8 +74,9 @@ class ProductsController extends Controller
      */
     public function create()
     {   
-        $categories = Category::pluck('category_name','id');
-        // dd($categories);
+        $vendor_id = Auth::user()->vendor_id;
+        $categories = Category::where('vendor_id',$vendor_id)->pluck('category_name','id');
+        
         return view('products.create')->with('categories',$categories);
     }
 
@@ -107,8 +125,7 @@ class ProductsController extends Controller
                 $product_pic_2 = $nameAvatar;
             }
 
-        }
-        else{
+        }else{
             $product_pic_2=null;
         }
 
@@ -156,16 +173,15 @@ class ProductsController extends Controller
         }else{
             $product_pic_5=null;
         }
-        
 
         // Product::create($requestData);
-        
         // dd( $product_pic_1, $product_pic_2, $product_pic_3, $product_pic_4, $product_pic_5);
 
-
+        $vendor_id = Auth::user()->vendor_id;
+        
         $p = new Product();
 
-        $p->vendor_id       = '1';
+        $p->vendor_id       = $vendor_id;
         $p->category_id     = $request->category;
         $p->product_name    = $request->product_name;
         $p->product_description = $request->product_description;

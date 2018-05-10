@@ -59,8 +59,8 @@ Route::group(['prefix'=>'user','middleware'=>'ApiAuth','namespace'=>'Api'],funct
     Route::get('/privacyPolicy','UserController@privacy_policy');
 
 
-    Route::get('/user/search/{keyWord}','Api\SearchController@search');
-    Route::post('/user/bindplate','Api\BindingController@index');
+    Route::get('/search/{keyWord}','Api\SearchController@search');
+    Route::post('/contact_us','ContactController@index');
     // Route::get('/user/search','Api\SearchController@searchNumber');
 
     Route::get('/sms/send/{to}','Api\BindingController@sms');

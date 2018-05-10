@@ -6,6 +6,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Order;
+use Auth;
+use Config;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -19,14 +21,20 @@ class OrderController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 25;
+        $vendor_id = Auth::user()->vendor_id;
 
         if (!empty($keyword)) {
-            $order = Order::where('name', 'LIKE', "%$keyword%")
+
+            $order = Order::where('vendor_id',$vendor_id)
+                ->where(function($q) use ($keyword){
+                    $q->where('name', 'LIKE', "%$keyword%")
                 ->orWhere('phone', 'LIKE', "%$keyword%")
-                ->orWhere('total_amount', 'LIKE', "%$keyword%")
-				->paginate($perPage);
+                ->orWhere('total_amount', 'LIKE', "%$keyword%");
+                })
+                ->orderBy('created_at','desc')
+                ->paginate($perPage);
         } else {
-            $order = Order::paginate($perPage);
+            $order = Order::where('vendor_id',$vendor_id)->paginate($perPage);
         }
 
         return view('order.index', compact('order'));

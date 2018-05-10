@@ -26,8 +26,6 @@
                         <br/>
                         <br/>
 
-                        
-
                         <div class="table-responsive">
 
                         <table class="table table-hover table-responsive table-bordered">
@@ -60,17 +58,21 @@
 
                             </tr>
                           @endforeach
-
+                            <tr>
+                                <th colspan="4"><span class="pull-left"></span></th>
+                                <th>Products Amount </th>
+                                <th>PKR {{number_format($order[$key]->total_amount-$order[$key]->delivery_charges,2,".",",")}}/= </th>
+                            </tr>
                             <tr>
                                 <th colspan="4"><span class="pull-left"></span></th>
                                 <th>Delivery Charges</th>
-                                <th>PKR {{ number_format($order[$key]->delivery_charges,2,",",".") }}/= </td></th>
+                                <th>PKR {{ number_format($order[$key]->delivery_charges,2,".",",") }}/= </td></th>
                             </tr>
 
                             <tr>
                                 <th colspan="4"><span class="pull-left"></span></th>
-                                <th>Amount</th>
-                                <th>PKR {{ number_format($order[$key]->total_amount,2,",",".") }}/= </td></th>
+                                <th>Total Amount</th>
+                                <th>PKR {{ number_format($order[$key]->total_amount,2,".",",") }}/= </td></th>
                             </tr>
 
                         </table>

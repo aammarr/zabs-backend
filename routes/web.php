@@ -27,10 +27,19 @@ Route::get('/home', 'Admin\AdminController@index');
 
 Route::get('admin', 'Admin\AdminController@index');
 
+
 //admin
 Route::resource('admin/roles', 'Admin\RolesController');
 Route::resource('admin/permissions', 'Admin\PermissionsController');
 Route::resource('admin/user', 'Admin\UserController');
+
+
+Route::get('/change_password', function(){
+	return view('changePassword');
+});
+Route::post('/admin/change_password', function(){
+	dd('asd asd');
+});
 
 //generator
 Route::get('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);

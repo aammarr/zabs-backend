@@ -66,6 +66,7 @@ class UserController extends Controller
             $u->last_name       = Input::get('last_name');
             $u->phone           = Input::get('phone');
             $u->role_id         = '3';
+            $u->of_vendor       = Input::get('of_vendor');
             $u->city            = Input::get('city');
             $u->country         = Input::get('country');
             $u->avatar          = $nameAvatar;
@@ -104,8 +105,9 @@ class UserController extends Controller
         
         $email      = Input::get('email');
         $password   = Input::get('password');
+        $vendor_id  = Input::get('vendor_id');
 
-        if(Auth::attempt(['email'=>$email, 'password'=>$password, 'role_id'=>3])){
+        if(Auth::attempt(['email'=>$email, 'password'=>$password, 'role_id'=>3, 'of_vendor'=>$vendor_id])){
                 
                 $userAuth   = Auth::user();
 

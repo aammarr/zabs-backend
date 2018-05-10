@@ -54,10 +54,8 @@ class OrderController extends Controller
 
         $user_id        = $request['user']->id;
         $vendor_id      = $request->vendor_id;
-
         $cartIds = implode(',',$request->cart_ids);
         $cartIds = $request->cart_ids;
-        
 
         /*foreach($cartIds as $c){
             $cart       = Cart::find($c);
@@ -70,8 +68,6 @@ class OrderController extends Controller
                 dd("Not empty");
             }
         }*/
-
-
 
         $o      =  new Order();
 
