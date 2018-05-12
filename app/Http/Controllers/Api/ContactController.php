@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input as Input;
 use Illuminate\Support\Facades\Validator; 
 
-use App\Models\Contact;
+use App\Models\ContactUs;
 
 use Config;
 use Auth;
@@ -29,8 +29,20 @@ class ContactController extends Controller
         $mobile = $request->mobile;
         $title = $request->title;
         $message = $request->message;
-        
-        
+        $vendor_id = $request->vendor_id;
+
+        $c = new ContactUs();
+        $c->user_id = $request['user']->id;
+        $c->name = $name;
+        $c->email = $email;
+        $c->mobile = $mobile;
+        $c->title = $title;
+        $c->message = $message;
+        $c->vendor_id = $vendor_id;
+        $c->save();
+
+        return $this->sendResponse(Config::get('constants.status.OK'),null, null);
+
     }
 
     /**

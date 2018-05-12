@@ -23,7 +23,8 @@ class Product extends Model
                     'p.product_name',
                     'p.product_description',
                     'p.product_price',
-                    'p.product_pic_1'
+                    'p.product_pic_1',
+                    'p.stock'
                 )
                 ->orderBy('p.id','desc')
                 ->get();
@@ -40,7 +41,8 @@ class Product extends Model
                     'p.product_name',
                     'p.product_description',
                     'p.product_price',
-                    'p.product_pic_1'
+                    'p.product_pic_1',
+                    'p.stock'
                 )
                 ->orderBy('p.id','desc')
                 ->get();
@@ -62,7 +64,8 @@ class Product extends Model
                     'p.product_pic_2',
                     'p.product_pic_3',
                     'p.product_pic_4',
-                    'p.product_pic_5'
+                    'p.product_pic_5',
+                    'p.stock'
                 )
     			->orderBy('p.id','desc')
                 ->get();

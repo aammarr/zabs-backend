@@ -53,6 +53,7 @@ Route::group(['prefix'=>'user','middleware'=>'ApiAuth','namespace'=>'Api'],funct
     Route::get('/{vendor_id}/orders','OrderController@getOrders');
     Route::post('/{vendor_id}/order','OrderController@postOrder');
 
+    Route::post('/contact_us','ContactController@index');
 
     Route::get('/faqs','UserController@faqs');
     Route::get('/tnc','UserController@tnc');
@@ -60,7 +61,6 @@ Route::group(['prefix'=>'user','middleware'=>'ApiAuth','namespace'=>'Api'],funct
 
 
     Route::get('/search/{keyWord}','Api\SearchController@search');
-    Route::post('/contact_us','ContactController@index');
     // Route::get('/user/search','Api\SearchController@searchNumber');
 
     Route::get('/sms/send/{to}','Api\BindingController@sms');

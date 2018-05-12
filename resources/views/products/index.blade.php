@@ -63,6 +63,18 @@
                                                         'onclick'=>'return confirm("Confirm delete?")'
                                                 )) !!}
                                             {!! Form::close() !!}
+                                            <?php 
+                                            if($item->stock=='1'){
+                                            ?>
+                                                <a href="{{ url('/admin/products/outStock/' . $item->id) }}" title="View Product"><button class="btn btn-warning btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> Out Of Stock</button></a>
+                                            <?php
+                                            }
+                                            else{
+                                            ?>
+                                              <a href="{{ url('/admin/products/inStock/' . $item->id) }}" title="View Product"><button class="btn btn-success btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> In Stock</button></a>  
+                                            <?php }
+                                            ?>
+                                            
                                         </td>
                                     </tr>
                                 @endforeach

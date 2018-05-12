@@ -54,7 +54,6 @@ class ProductsController extends Controller
 
         } else {
             // $products = Product::paginate($perPage);
-
             $products = DB::table('products as p')
                         ->leftJoin('category as c','c.id','p.category_id')
                         ->where('p.deleted_at',null)
@@ -65,6 +64,27 @@ class ProductsController extends Controller
         }
 
         return view('products.index', compact('products'));
+    }
+
+    public function inStock(Request $request){
+        $id =$request->id;
+        
+        $product = Product::find($id);
+        $product->stock = "1";
+        $product->save();
+
+        return redirect('admin/products');
+    }
+
+    public function outStock(Request $request){
+       
+        $id =$request->id;
+        
+        $product = Product::find($id);
+        $product->stock = "0";
+        $product->save();
+
+        return redirect('admin/products');
     }
 
     /**

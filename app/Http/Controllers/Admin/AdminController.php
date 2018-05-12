@@ -7,7 +7,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Auth;
-
+use App\Category;
+use App\ContactUs;
+use App\Order;
+use App\Product;
+use App\User;
+use View;
 
 class AdminController extends Controller
 {
@@ -18,25 +23,42 @@ class AdminController extends Controller
      */
 
     public function __construct()
-    {       
+    {      
         $this->middleware('auth');
-        return redirect('home');
+        
+/*        $user       = User::all();
+        $products   = Product::all();
+        $messages   = ContactUs::all();
+        $categories = Category::all();
+        $orders     = Order::all();
+        
+
+        $dataPoints = array( 
+                        array("label"=>"Users", count($user)),
+                        array("label"=>"Products", count($products)),
+                        array("label"=>"Categories", count($categories)),
+                        array("label"=>"Messages", count($messages)),
+                        array("label"=>"Orders", count($orders))
+                    );
+*/
+        return view('admin/dashboard');
+        
+        #return redirect('home');
 
         $this->middleware(function (Request $request, $next) {
             
-         //    $user = \Auth::user();
+            /*$user = \Auth::user();
 
-         //    if ( $user->role_id == 3 ) {
-         //    	dd('/excissse');
-	        // }
-	        // else if ( $user->role_id == 4 ) {
-         //    	dd('/sales_aacenter');
-	        // }
-	        // else{
-	        // 	// dd('azzxx');
-	        // 	\Auth()->logout();
-	        // }
-
+                if ( $user->role_id == 3 ) {
+                	dd('/excissse');
+    	        }
+    	        else if ( $user->role_id == 4 ) {
+                	dd('/sales_aacenter');
+    	        }
+    	        else{
+    	        	// dd('azzxx');
+    	        	\Auth()->logout();
+	        }*/
 
         });
 
