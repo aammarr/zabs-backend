@@ -43,6 +43,29 @@
                 array("label"=>"Orders", "y"=>count($orders))
             );
 ?>
+<!-- coloumn chart -->
+<script>
+window.onload = function() {
+ 
+var chart = new CanvasJS.Chart("chartContainer2", {
+    animationEnabled: true,
+    theme: "light2",
+    title:{
+        text: "Total Numbers"
+    },
+    axisY: {
+        title: "Numbers"
+    },
+    data: [{
+        type: "column",
+        yValueFormatString: "#,##0.## tonnes",
+        dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+    }]
+});
+chart.render();
+ 
+}
+</script>
 
 <!-- pie chart -->
 <script>
@@ -61,29 +84,6 @@ var chart = new CanvasJS.Chart("chartContainer1", {
         type: "pie",
         yValueFormatString: "#,##0.00\"%\"",
         indexLabel: "{label} ({y})",
-        dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-    }]
-});
-chart.render();
- 
-}
-</script>
-<!-- coloumn chart -->
-<script>
-window.onload = function() {
- 
-var chart = new CanvasJS.Chart("chartContainer2", {
-    animationEnabled: true,
-    theme: "light2",
-    title:{
-        text: "Total Numbers"
-    },
-    axisY: {
-        title: "Numbers"
-    },
-    data: [{
-        type: "column",
-        yValueFormatString: "#,##0.## tonnes",
         dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
     }]
 });
