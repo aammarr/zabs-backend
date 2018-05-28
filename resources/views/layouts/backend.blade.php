@@ -7,8 +7,8 @@
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
-           <title>ZABS</title>
+        
+           <title> {{ Auth::user()->first_name }} </title>
 
 
         <!-- Styles -->
@@ -44,7 +44,7 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li><a href="{{ url('/home') }}">ZABS <span class="sr-only">(current)</span></a></li>
+                        <li><a href="{{ url('/home') }}">{{Auth::user()->first_name}} <span class="sr-only">(current)</span></a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -72,7 +72,7 @@
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout {{Auth::user()->firstname}}
+                                            Logout  
                                         </a>
 
                                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
@@ -101,7 +101,7 @@
         <hr/>
 
         <div class="container">
-            &copy; {{ date('Y') }}. Created by <a href="http://www.sigbl.com">SI GLOBAL</a>
+            &copy; {{ date('Y') }}. Created by <a href="">ADDA Enterprise</a>
             <br/>
         </div>
 

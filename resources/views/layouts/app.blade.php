@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>ZABS</title>
+    <title> APP </title>
 
     <!-- Styles -->
     <link href="<?php echo URL::to('/'); ?>/css/app.css" rel="stylesheet">
@@ -37,7 +37,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/home') }}">
-                        V PLATES
+                        
                         <!-- {{ config('app.name', 'Laravel') }} -->
                     </a>
                 </div>
