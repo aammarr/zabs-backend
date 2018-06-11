@@ -36,7 +36,7 @@ class UserController extends Controller
 
 
             $user = User::where('role_id',3)
-                ->where('of_vendor',2)
+                ->where('of_vendor',$vendor_id)
                 ->where(function($q) use ($keyword){
                     $q->where('first_name','like','%'.$keyword.'%')
                     ->orwhere('last_name','like','%'.$keyword.'%')
@@ -54,7 +54,50 @@ class UserController extends Controller
         return view('user.index', compact('user'));
     }
 
+
+
     /**
+     * 
+     *
+     */
+
+    public function changePasssword(Request $request){
+        
+        $oldPassword        = $request->old_password;
+        $new_password       = $request->new_password;
+        $confirm_password   = $request->confirm_password;
+
+        $email      = Auth::User()->email;
+        $password   = Auth::User()->password;
+
+        if (Auth::attempt(['email' => $email, 'password' => $oldPassword, 'role_id' => 2]))
+        {
+            if( $new_password != $confirm_password){
+                dd('Passwords are not matched!! ');
+            }else{
+                
+                $user = Auth::User();
+                $user->password = bcrypt($new_password);
+                $user->save();
+
+                return redirect('/admin/user');
+            }
+
+        }
+        else{
+            
+            dd('Password Entered Incorrect');
+
+        }
+
+    }
+
+     /**
+     * 
+     *
+     */
+
+     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\View\View

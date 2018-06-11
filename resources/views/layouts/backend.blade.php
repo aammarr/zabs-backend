@@ -96,6 +96,15 @@
             </div>
         @endif
 
+        @if (Session::has('warning_message'))
+            <div class="container">
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ Session::get('warning_message') }}
+                </div>
+            </div>
+        @endif
+
         @yield('content')
 
         <hr/>

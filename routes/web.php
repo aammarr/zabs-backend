@@ -37,9 +37,7 @@ Route::resource('admin/user', 'Admin\UserController');
 Route::get('/change_password', function(){
 	return view('changePassword');
 });
-Route::post('/admin/change_password', function(){
-	dd('asd asd');
-});
+Route::post('/admin/change_password','UserController\\UserController@changePasssword');
 
 //generator
 Route::get('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
@@ -57,3 +55,4 @@ Route::get('admin/products/outStock/{id}', 'ProductController\\ProductsControlle
 Route::resource('admin/order', 'OrderController\\OrderController');
 Route::resource('admin/contact-us', 'ContactController\\ContactUsController');
 Route::resource('admin/settings', 'SettingController\\SettingsController');
+Route::resource('admin/banner', 'BannerController\\BannerController');

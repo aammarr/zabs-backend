@@ -252,7 +252,8 @@ class ProductsController extends Controller
                         ->select('p.*','c.category_name')
                         ->get();
 
-        $categories = Category::pluck('category_name','id');
+        $vendor_id = Auth::user()->vendor_id;
+        $categories = Category::where('vendor_id',$vendor_id)->pluck('category_name','id');
 
         // dd($categories);
         return view('products.edit', compact('product','categories'));
@@ -276,7 +277,9 @@ class ProductsController extends Controller
             'product_price' => 'required'
         ]);
         $requestData = $request->all();
-        
+
+
+
         $product = Product::find($id);
 
 
@@ -361,9 +364,10 @@ class ProductsController extends Controller
         $product->product_pic_3 = $product_pic_3;
         $product->product_pic_4 = $product_pic_4;
         $product->product_pic_5 = $product_pic_5;
+        $p->stock = 1;
         $product->save();
 
-        // $product->update($requestData);
+        $product->update($requestData);
 
         return redirect('admin/products')->with('flash_message', 'Product updated!');
     }

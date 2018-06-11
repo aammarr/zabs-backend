@@ -55,6 +55,8 @@ Route::group(['prefix'=>'user','middleware'=>'ApiAuth','namespace'=>'Api'],funct
 
     Route::post('/contact_us','ContactController@index');
 
+    Route::get('/{vendor_id}/banners','BannerController@index');
+
     Route::get('/faqs','UserController@faqs');
     Route::get('/tnc','UserController@tnc');
     Route::get('/privacyPolicy','UserController@privacy_policy');

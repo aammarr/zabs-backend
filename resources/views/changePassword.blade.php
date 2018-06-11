@@ -36,7 +36,7 @@
                             <div class="form-group {{ $errors->has('new_password') ? 'has-error' : ''}}">
                                 {!! Form::label('new_password', 'New Password', ['class' => 'col-md-4 control-label']) !!}
                                 <div class="col-md-6">
-                                    {!! Form::text('new_password', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                                    {!! Form::password('new_password', null, ['class' => 'form-control', 'required' => 'required']) !!}
                                     {!! $errors->first('new_password', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                             <div class="form-group {{ $errors->has('confirm_password') ? 'has-error' : ''}}">
                                 {!! Form::label('confirm_password', 'Confirm New Password', ['class' => 'col-md-4 control-label']) !!}
                                 <div class="col-md-6">
-                                    {!! Form::text('confirm_password', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                                    {!! Form::password('confirm_password', null, ['class' => 'form-control', 'required' => 'required']) !!}
                                     {!! $errors->first('confirm_password', '<p class="help-block">:message</p>') !!}
                                 </div>
                             </div>
