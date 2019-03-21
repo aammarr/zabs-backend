@@ -30,23 +30,23 @@ class PushNotificationHandler {
 	public static function pushNotification($appType, $token, $text) {
 		$request = [ ];
 		// Request for Android
-		if ($appType == 'symo-app-android') {
+		if ($appType == 'zabs-app-android') {
 			$request = [ 
 					"to" => "$token",
 					"data" => [ 
-							"title" => "BonApp",
+							"title" => "ZabsApp",
 							"message" => "$text" 
 					] 
 			];
 		}
 		// Request for iOS
-		if ($appType == 'symo-app-ios') {
+		if ($appType == 'zabs-app-ios') {
 			$request = [ 
 					"registration_ids" => [ 
 							"$token" 
 					],
 					"notification" => [
-							"title" => "BonApp",
+							"title" => "ZabsApp",
 							"body" => "$text",
 							"badge" => "0",
 							"sound" => "default"
