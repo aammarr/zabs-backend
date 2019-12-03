@@ -144,20 +144,4 @@ class UsersController extends Controller
         return redirect('admin/users')->with('flash_message', 'User deleted!');
     }
 
-    public function logout(Request $request){
-
-        // $user_id = \GuzzleHttp\json_decode($request->input('user'))->id;  
-        $id         = $request['user']->id;
-        $user_email = $request['user']->email;
-
-        $user = User::where('email',$user_email)->get()->first();
-        
-        $user->access_token = null;
-        $user->gcm_token = null;
-        $user->save(); 
-
-        Auth::logout();
-
-        return $this->sendResponse(Config::get('constants.status.OK'),null,null);
-    }
 }

@@ -44,7 +44,17 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li><a href="{{ url('/home') }}">{{Auth::user()->first_name}} <span class="sr-only">(current)</span></a></li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{{ url('/home') }}">
+                              <img src='../public/images/vertex-logo.png' style="height: 25px;width: 100px">
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                            <!-- <a href="{{ url('/home') }}"> {{Auth::user()->first_name}} 
+                                <span class="sr-only">(current)</span>
+                            </a> -->
+                        </li>
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -61,11 +71,11 @@
                                         }
                                         else if(Auth::user()->role_id==4){echo "SALES CENTER ";}
 
-                                     ?> <span class="caret"></span>
+                                     ?> {{Auth::user()->first_name}}<span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li>
+                                    <li >
                                         <a href="{{ url('/change_password') }}">
                                             Change Password
                                         </a>
@@ -124,12 +134,12 @@
             }, 10000);
         </script> -->
 
-        <script type="text/javascript">
+        <!-- <script type="text/javascript">
             $(function () {
                 // Navigation active
                 $('ul.navbar-nav a[href="{{ "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]" }}"]').closest('li').addClass('active');
             });
-        </script>
+        </script> -->
 
         @yield('scripts')
     </body>

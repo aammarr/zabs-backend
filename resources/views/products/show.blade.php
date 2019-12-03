@@ -39,7 +39,7 @@
                         <td>{{ $product->product_name }}</td>
                         <td>{{ $product->product_description }}</td>
                         <td>{{ $product->category_name }}</td>
-                        <td>{{ "PKR ".$product->product_price }}</td>
+                        <td>{{ "AED ".$product->product_price }}</td>
                      </tr>
                   </tbody>
                </table>

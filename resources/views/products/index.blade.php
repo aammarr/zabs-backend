@@ -47,7 +47,7 @@
                                         </td>
                                         <td>{{ $item->product_name }}</td>
                                         <td>{{ $item->product_description }}</td>
-                                        <td>{{ "PKR ".$item->product_price }}</td>
+                                        <td>{{ "AED ".$item->product_price }}</td>
                                         <td>
                                             <a href="{{ url('/admin/products/' . $item->id) }}" title="View Product"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/admin/products/' . $item->id . '/edit') }}" title="Edit Product"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

@@ -70,6 +70,16 @@ class AdminController extends Controller
     }
 
     public function logout(Request $request) {
+
+        $id         = $request['user']->id;
+        $user_email = $request['user']->email;
+
+        $user = User::where('email',$user_email)->get()->first();
+        
+        $user->access_token = null;
+        $user->gcm_token = null;
+        $user->save(); 
+        
         Auth::logout();
         return redirect('/login');
     }

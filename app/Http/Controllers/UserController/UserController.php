@@ -27,7 +27,7 @@ class UserController extends Controller
 
         if (!empty($keyword)) {
 
-            /*$user = User::where('of_vendor',$vendor_id)->where('role_id',3)
+            /*$user = User::where('vendor_id',$vendor_id)->where('role_id',3)
                 ->orwhere('first_name', 'LIKE', "%$keyword%")
                 ->orwhere('last_name', 'LIKE', "%$keyword%")
                 ->orWhere('email', 'LIKE', "%$keyword%")
@@ -36,7 +36,7 @@ class UserController extends Controller
 
 
             $user = User::where('role_id',3)
-                ->where('of_vendor',$vendor_id)
+                ->where('vendor_id',$vendor_id)
                 ->where(function($q) use ($keyword){
                     $q->where('first_name','like','%'.$keyword.'%')
                     ->orwhere('last_name','like','%'.$keyword.'%')
@@ -47,7 +47,7 @@ class UserController extends Controller
                     
             
         } else {
-            $user = User::where('role_id','3')->where('of_vendor',$vendor_id)->paginate($perPage);
+            $user = User::where('role_id','3')->where('vendor_id',$vendor_id)->paginate($perPage);
 
         }
 

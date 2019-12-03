@@ -47,7 +47,8 @@ Route::resource('admin/test', 'TestController\\TestController');
 
 
 // Route::get('test', function)
-Route::post('/logout','UserController@logout');
+Route::get('/logout','AdminController@logout');
+
 Route::resource('admin/user', 'UserController\\UserController');
 Route::resource('admin/category', 'CategoryController\\CategoryController');
 Route::resource('admin/products', 'ProductController\\ProductsController');
@@ -57,3 +58,8 @@ Route::resource('admin/order', 'OrderController\\OrderController');
 Route::resource('admin/contact-us', 'ContactController\\ContactUsController');
 Route::resource('admin/settings', 'SettingController\\SettingsController');
 Route::resource('admin/banner', 'BannerController\\BannerController');
+
+
+Route::group(['prefix'=>'admin','middleware'=>'auth.basic','namespace'=>'Admin'],function(){
+	// Route::resource('/category', 'CategoryController\\CategoryController');
+});
