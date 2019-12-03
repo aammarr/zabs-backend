@@ -22,6 +22,7 @@ class CreateCartTable extends Migration
             $table->integer('total_price')->nullable();
             $table->string('product_avatar')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

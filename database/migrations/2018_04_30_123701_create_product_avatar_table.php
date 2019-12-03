@@ -19,6 +19,7 @@ class CreateProductAvatarTable extends Migration
             $table->integer('product_id')->nullable();
             $table->string('product_avatar')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

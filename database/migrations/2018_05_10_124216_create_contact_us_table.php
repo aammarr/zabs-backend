@@ -23,6 +23,7 @@ class CreateContactUsTable extends Migration
             $table->string('title')->nullable();
             $table->string('message')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

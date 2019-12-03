@@ -17,7 +17,9 @@ class CreateCategoryTable extends Migration
             $table->increments('id');
             $table->integer('vendor_id')->nullable();
             $table->string('category_name')->nullable();
+            $table->string('category_avatar')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

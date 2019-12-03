@@ -28,6 +28,7 @@ class CreateVendorTable extends Migration
             $table->string('avatar')->nullable();
             $table->string('background_image')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
 

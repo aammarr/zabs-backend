@@ -211,6 +211,7 @@ class ProductsController extends Controller
         $p->product_pic_3   = $product_pic_3;
         $p->product_pic_4   = $product_pic_4;
         $p->product_pic_5   = $product_pic_5;
+        $p->stock           = 1;
         $p->save();
 
         return redirect('admin/products')->with('flash_message', 'Product added!');

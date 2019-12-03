@@ -6,7 +6,7 @@
     $vendor_id = Auth::user()->vendor_id;
  
     $user = DB::table('users as u')
-                ->where('u.of_vendor',$vendor_id)
+                ->where('u.vendor_id',$vendor_id)
                 ->where('u.deleted_at',null)
                 ->select('u.*')
                 ->get();

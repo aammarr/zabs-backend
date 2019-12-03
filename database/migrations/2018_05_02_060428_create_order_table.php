@@ -27,6 +27,7 @@ class CreateOrderTable extends Migration
             $table->string('address')->nullable();
             $table->string('note')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

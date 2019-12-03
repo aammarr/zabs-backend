@@ -29,6 +29,7 @@ class CreateOrderProductsTable extends Migration
             $table->string('product_pic_5')->nullable();
             $table->string('price')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -18,6 +18,7 @@ class CreateSettingsTable extends Migration
             $table->double('delivery_fee')->nullable();
             $table->string('t_n_c')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

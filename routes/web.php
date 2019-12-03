@@ -47,6 +47,7 @@ Route::resource('admin/test', 'TestController\\TestController');
 
 
 // Route::get('test', function)
+Route::post('/logout','UserController@logout');
 Route::resource('admin/user', 'UserController\\UserController');
 Route::resource('admin/category', 'CategoryController\\CategoryController');
 Route::resource('admin/products', 'ProductController\\ProductsController');

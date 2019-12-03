@@ -17,6 +17,7 @@ class CreateClientTable extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->string('client_id');
             $table->string('client_secret');
+            $table->softDeletes();
         });
     }
 
