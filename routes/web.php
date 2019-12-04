@@ -47,7 +47,7 @@ Route::resource('admin/test', 'TestController\\TestController');
 
 
 // Route::get('test', function)
-Route::get('/logout','AdminController@logout');
+Route::get('/logout','Auth\LoginController@logout');
 
 Route::resource('admin/user', 'UserController\\UserController');
 Route::resource('admin/category', 'CategoryController\\CategoryController');
@@ -63,3 +63,6 @@ Route::resource('admin/banner', 'BannerController\\BannerController');
 Route::group(['prefix'=>'admin','middleware'=>'auth.basic','namespace'=>'Admin'],function(){
 	// Route::resource('/category', 'CategoryController\\CategoryController');
 });
+
+Route::resource('admin/vendor', 'VendorController\\VendorController');
+Route::resource('admin/vendor', 'VendorController\\VendorController');
