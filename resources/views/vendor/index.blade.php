@@ -37,7 +37,8 @@
                                 @foreach($vendor as $item)
                                     <tr>
                                         <td>{{ $item->vendor_id }}</td>
-                                        <td>{{ $item->name }}</td><td>{{ $item->email }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->email }}</td>
                                         <td>
                                             <a href="{{ url('/admin/vendor/' . $item->vendor_id) }}" title="View Vendor"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/admin/vendor/' . $item->vendor_id . '/edit') }}" title="Edit Vendor"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

@@ -7,7 +7,7 @@
 
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Edit Vendor #{{ $vendor->vendor_id }}</div>
+                    <div class="panel-heading">Create New Vendor</div>
                     <div class="panel-body">
                         <a href="{{ url('/admin/vendor') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
@@ -21,14 +21,9 @@
                             </ul>
                         @endif
 
-                        {!! Form::model($vendor, [
-                            'method' => 'PATCH',
-                            'url' => ['/admin/vendor', $vendor->vendor_id],
-                            'class' => 'form-horizontal',
-                            'files' => true
-                        ]) !!}
+                        {!! Form::open(['url' => '/admin/vendor', 'class' => 'form-horizontal', 'files' => true]) !!}
 
-                        @include ('vendor.vendor.edit_form', ['submitButtonText' => 'Update'])
+                        @include ('vendor.form')
 
                         {!! Form::close() !!}
 

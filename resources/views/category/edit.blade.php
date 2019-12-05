@@ -4,15 +4,14 @@
     <div class="container">
         <div class="row">
             @include('admin.sidebar')
-
+            
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Edit Category #{{ $category->id }}</div>
+                    <div class="panel-heading">Edit Category #{{ $category->category_id }}</div>
                     <div class="panel-body">
                         <a href="{{ url('/admin/category') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
-
                         @if ($errors->any())
                             <ul class="alert alert-danger">
                                 @foreach ($errors->all() as $error)
@@ -28,7 +27,7 @@
                             'files' => true
                         ]) !!}
 
-                        @include ('category.form', ['submitButtonText' => 'Update'])
+                        @include ('category.edit_form', ['submitButtonText' => 'Update'])
 
                         {!! Form::close() !!}
 

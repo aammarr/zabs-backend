@@ -33,6 +33,7 @@
                                         <th>Avatar</th>
                                         <th>Name</th>
                                         <th>Description</th>
+                                        <th>Vendor</th>
                                         <th>Price</th>
                                         <th>Actions</th>
                                     </tr>
@@ -47,6 +48,7 @@
                                         </td>
                                         <td>{{ $item->product_name }}</td>
                                         <td>{{ $item->product_description }}</td>
+                                        <td>{{ $item->name }}</td>
                                         <td>{{ "AED ".$item->product_price }}</td>
                                         <td>
                                             <a href="{{ url('/admin/products/' . $item->id) }}" title="View Product"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>

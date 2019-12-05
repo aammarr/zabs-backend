@@ -1,42 +1,42 @@
 @extends('layouts.backend')
 
 @section('content')
-
 <?php
     $vendor_id = Auth::user()->vendor_id;
  
     $user = DB::table('users as u')
-                ->where('u.vendor_id',$vendor_id)
                 ->where('u.deleted_at',null)
                 ->select('u.*')
                 ->get();
 
+    $vendor = DB::table('vendor as v')
+                ->where('v.deleted_at',null)
+                ->select('v.*')
+                ->get();
+
     $categories = DB::table('category as c')
-                ->where('c.vendor_id',$vendor_id)
                 ->where('c.deleted_at',null)
                 ->select('c.*')
                 ->get();
 
     $products = DB::table('products as p')
-                ->where('p.vendor_id',$vendor_id)
                 ->where('p.deleted_at',null)
                 ->select('p.*')
                 ->get();
 
     $orders = DB::table('orders as o')
-                ->where('o.vendor_id',$vendor_id)
                 ->where('o.deleted_at',null)
                 ->select('o.*')
                 ->get();
 
     $messages = DB::table('contact_us as cu')
-                ->where('cu.vendor_id',$vendor_id)
                 ->where('cu.deleted_at',null)
                 ->select('cu.*')
                 ->get();
 
   $dataPoints = array( 
                 array("label"=>"Users", "y"=>count($user)),
+                array("label"=>"Vendors", "y"=>count($vendor)),
                 array("label"=>"Products", "y"=>count($products)),
                 array("label"=>"Categories", "y"=>count($categories)),
                 array("label"=>"Messages", "y"=>count($messages)),
@@ -78,13 +78,13 @@ var chart = new CanvasJS.Chart("chartContainer1", {
         text: "Usage Share of Desktop Browsers"
     },
     subtitles: [{
-        text: "November 2017"
+        text: "November 2019"
     }],
     data: [{
         type: "pie",
         yValueFormatString: "#,##0.00\"%\"",
         indexLabel: "{label} ({y})",
-        dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+        dataPoints: <?php  echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
     }]
 });
 chart.render();

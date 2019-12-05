@@ -60,9 +60,8 @@ Route::resource('admin/settings', 'SettingController\\SettingsController');
 Route::resource('admin/banner', 'BannerController\\BannerController');
 
 
-Route::group(['prefix'=>'admin','middleware'=>'auth.basic','namespace'=>'Admin'],function(){
-	// Route::resource('/category', 'CategoryController\\CategoryController');
-});
+// Route::group(['prefix'=>'admin','middleware'=>'auth.basic','namespace'=>'Admin'],function(){
+// 	 Route::resource('/category', 'CategoryController\\CategoryController');
+// });
 
-Route::resource('admin/vendor', 'VendorController\\VendorController');
 Route::resource('admin/vendor', 'VendorController\\VendorController');

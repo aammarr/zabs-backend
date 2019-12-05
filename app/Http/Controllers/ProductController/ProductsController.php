@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ProductController;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Vendor;
 use App\Product;
 use App\Category;
 use Illuminate\Http\Request;
@@ -38,28 +39,31 @@ class ProductsController extends Controller
 				->orWhere('product_pic_5', 'LIKE', "%$keyword%")
 				->paginate($perPage);*/
 
-            $products = Product::where('vendor_id',$vendor_id)
+            $products = Product::leftJoin('category as c','c.id','products.category_id')
+                        ->leftJoin('vendor as v','v.id','products.vendor_id')
                         ->where(function($q) use ($keyword){
-                            $q->orwhere('product_name', 'LIKE', "%$keyword%")
-                                ->orWhere('product_description', 'LIKE', "%$keyword%")
-                                ->orWhere('product_price', 'LIKE', "%$keyword%")
-                                ->orWhere('product_pic_1', 'LIKE', "%$keyword%")
-                                ->orWhere('product_pic_2', 'LIKE', "%$keyword%")
-                                ->orWhere('product_pic_3', 'LIKE', "%$keyword%")
-                                ->orWhere('product_pic_4', 'LIKE', "%$keyword%")
-                                ->orWhere('product_pic_5', 'LIKE', "%$keyword%");
+                            $q->orwhere('products.product_name', 'LIKE', "%$keyword%")
+                                ->orWhere('products.product_description', 'LIKE', "%$keyword%")
+                                ->orWhere('products.product_price', 'LIKE', "%$keyword%")
+                                ->orWhere('v.name', 'LIKE', "%$keyword%")
+                                ->orWhere('c.category_name', 'LIKE', "%$keyword%");
+                                // ->orWhere('products.product_pic_1', 'LIKE', "%$keyword%")
+                                // ->orWhere('products.product_pic_2', 'LIKE', "%$keyword%")
+                                // ->orWhere('products.product_pic_3', 'LIKE', "%$keyword%")
+                                // ->orWhere('products.product_pic_4', 'LIKE', "%$keyword%")
+                                // ->orWhere('products.product_pic_5', 'LIKE', "%$keyword%");
                         })
-                        ->orderBy('created_at','desc')
+                        ->orderBy('products.created_at','desc')
                 ->paginate($perPage);
 
         } else {
-            // $products = Product::paginate($perPage);
-            $products = DB::table('products as p')
-                        ->leftJoin('category as c','c.id','p.category_id')
-                        ->where('p.deleted_at',null)
-                        ->where('p.vendor_id',$vendor_id)
-                        ->select('p.*','c.category_name')
-                        ->orderBy('p.created_at','desc')
+
+            $products = Product::leftJoin('category as c','c.id','products.category_id')
+                        ->leftJoin('vendor as v','v.id','products.vendor_id')
+                        ->whereNull('products.deleted_at')
+                        // ->where('products.vendor_id',$vendor_id)
+                        ->select('products.*','c.category_name','v.name')
+                        ->orderBy('products.created_at','desc')
                         ->paginate($perPage);
         }
 
@@ -94,10 +98,18 @@ class ProductsController extends Controller
      */
     public function create()
     {   
-        $vendor_id = Auth::user()->vendor_id;
-        $categories = Category::where('vendor_id',$vendor_id)->pluck('category_name','id');
+        // $vendor_id = Auth::user()->vendor_id;
+        // $categories = Category::where('vendor_id',$vendor_id)->pluck('category_name','id');
         
-        return view('products.create')->with('categories',$categories);
+        if(Auth::user()->role_id == 1){
+            $vendors = Vendor::pluck('name','id');
+            $categories = Category::pluck('category_name','id');
+        }else{
+            $categories = Category::where('vendor_id',$vendor_id)->pluck('category_name','id');
+        }
+
+        return view('products.create', compact('categories','vendors'));
+        // return view('products.create')->with('categories',$categories);
     }
 
     /**
@@ -226,11 +238,11 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product = DB::table('products as p')
-                        ->leftJoin('category as c','c.id','p.category_id')
-                        ->where('p.id',$id)
-                        ->where('p.deleted_at',null)
-                        ->select('p.*','c.category_name')
+        $product = Product::leftJoin('category as c','c.id','products.category_id')
+                        ->leftJoin('vendor as v','v.id','products.vendor_id')
+                        ->where('products.id',$id)
+                        ->where('products.deleted_at',null)
+                        ->select('products.*','c.category_name','v.name as vendor_name')
                         ->first();
 
         return view('products.show', compact('product'));
@@ -254,11 +266,15 @@ class ProductsController extends Controller
                         ->get();
 
         $vendor_id = Auth::user()->vendor_id;
-        $categories = Category::where('vendor_id',$vendor_id)->pluck('category_name','id');
 
-        // dd($categories);
-        return view('products.edit', compact('product','categories'));
+        if(Auth::user()->role_id == 1){
+            $vendors = Vendor::pluck('name','id');
+            $categories = Category::pluck('category_name','id');
+        }else{
+            $categories = Category::where('vendor_id',$vendor_id)->pluck('category_name','id');
+        }
 
+        return view('products.edit', compact('product','categories','vendors'));
         // return view('products.edit')->with('product');
     }
 

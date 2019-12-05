@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 
 use App\User;
 use App\Vendor;
+use App\Product;
+use App\Category;
 use Illuminate\Http\Request;
 
 class VendorController extends Controller
@@ -22,18 +24,22 @@ class VendorController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $vendor = Vendor::where('name', 'LIKE', "%$keyword%")
-				->orWhere('description', 'LIKE', "%$keyword%")
-				->orWhere('address', 'LIKE', "%$keyword%")
-				->orWhere('city', 'LIKE', "%$keyword%")
-				->orWhere('country', 'LIKE', "%$keyword%")
-				->orWhere('phone', 'LIKE', "%$keyword%")
-				->paginate($perPage);
+            $vendor = Vendor::leftJoin('users as u','u.id','vendor.user_id')
+                ->where('vendor.name', 'LIKE', "%$keyword%")
+				->orWhere('vendor.description', 'LIKE', "%$keyword%")
+				->orWhere('vendor.address', 'LIKE', "%$keyword%")
+				->orWhere('vendor.city', 'LIKE', "%$keyword%")
+				->orWhere('vendor.country', 'LIKE', "%$keyword%")
+				->orWhere('vendor.phone', 'LIKE', "%$keyword%")
+                ->whereNull('vendor.deleted_at')
+                ->paginate($perPage);
         } else {
-            $vendor = Vendor::leftJoin('users as u','u.id','vendor.user_id')->paginate($perPage);
+            $vendor = Vendor::leftJoin('users as u','u.id','vendor.user_id')
+                            ->whereNull('vendor.deleted_at')
+                            ->paginate($perPage);
         }
 
-        return view('vendor.vendor.index', compact('vendor'));
+        return view('vendor.index', compact('vendor'));
     }
 
     /**
@@ -43,7 +49,7 @@ class VendorController extends Controller
      */
     public function create()
     {
-        return view('vendor.vendor.create');
+        return view('vendor.create');
     }
 
     /**
@@ -82,6 +88,7 @@ class VendorController extends Controller
         $vendorData['address']  = $requestData['address'];
         $vendorData['city']  = $requestData['city'];
         $vendorData['country']  = $requestData['country'];
+        $vendorData['created_at']  = date('Y-m-d H:i:s');
         Vendor::insert($vendorData);
         $vendor = Vendor::where('user_id',$vendorData['user_id'])->first();
         
@@ -102,7 +109,7 @@ class VendorController extends Controller
     {
         $vendor = Vendor::where('vendor.id',$id)->leftJoin('users as u','u.id','vendor.user_id')->first();
         
-        return view('vendor.vendor.show', compact('vendor'));
+        return view('vendor.show', compact('vendor'));
     }
 
     /**
@@ -116,7 +123,7 @@ class VendorController extends Controller
     {
         $vendor = Vendor::where('vendor.id',$id)->leftJoin('users as u','u.id','vendor.user_id')->first();
 
-        return view('vendor.vendor.edit', compact('vendor'));
+        return view('vendor.edit', compact('vendor'));
     }
 
     /**
@@ -169,7 +176,25 @@ class VendorController extends Controller
      */
     public function destroy($id)
     {
-        Vendor::destroy($id);
+        // Vendor::destroy($id);
+        // return redirect('admin/vendor')->with('flash_message', 'Vendor deleted!');
+
+        $id = (int) $id;
+        $v = Vendor::find($id);
+        $vc = Category::where('vendor_id',$id)->get();
+        $vp = Product::where('vendor_id',$id)->get();
+        
+        
+        if(count($vc) > 0){
+            return redirect('admin/vendor')->with('warning_message', 'Vendor cannot be deleted, There are some categories associated with this vendor!');
+        }
+        else if(count($vp) > 0){
+            return redirect('admin/vendor')->with('warning_message', 'Vendor cannot be deleted, There are some products associated with this vendor!');
+        }
+        else{
+            $v = $v->destroy($id);
+        }
+
 
         return redirect('admin/vendor')->with('flash_message', 'Vendor deleted!');
     }

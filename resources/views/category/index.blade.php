@@ -4,7 +4,6 @@
     <div class="container">
         <div class="row">
             @include('admin.sidebar')
-
             <div class="col-md-9">
                 <div class="panel panel-default">
                     <div class="panel-heading">Category</div>
@@ -33,12 +32,14 @@
                                         <!-- <th>ID</th> -->
                                         <th>Avatar</th>
                                         <th>Name</th>
+                                        <th>Vendor</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($category as $item)
                                     <tr>
+
                                         <!-- <td>{{ $item->id }}</td> -->
                                         <td>
                                             <a class="thumnail" href="{{ $item->category_avatar }}" target="_blank">
@@ -54,6 +55,7 @@
                                         </td> -->
 
                                         <td>{{ $item->category_name }}</td>
+                                        <td>{{ $item->vendor_name }}</td>
                                         <td>
                                             <a href="{{ url('/admin/category/' . $item->id) }}" title="View Category"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/admin/category/' . $item->id . '/edit') }}" title="Edit Category"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>

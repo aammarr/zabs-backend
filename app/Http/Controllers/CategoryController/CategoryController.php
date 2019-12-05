@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Product;
+use App\Vendor;
 use Input;
 use Auth;
 
@@ -25,10 +27,21 @@ class CategoryController extends Controller
 
 
         if (!empty($keyword)) {
-            $category = Category::where('vendor_id',$vendor_id)->where('category_name', 'LIKE', "%$keyword%")
+            $category = Category::leftJoin('vendor as v','v.id','category.vendor_id')
+                ->OrWhere('v.name', 'LIKE', "%$keyword%")
+                ->OrWhere('category_name', 'LIKE', "%$keyword%")
+                 ->select(
+                            'category.id as category_id',
+                            'category.vendor_id as vendor_id',
+                            'category.category_name as category_name',
+                            'category.category_avatar as category_avatar',
+                            'category.created_at as created_at',
+                            'v.name as vendor_name')
 				->paginate($perPage);
         } else {
-            $category = Category::where('vendor_id',$vendor_id)->paginate($perPage);
+            $category = Category::leftJoin('vendor as v','v.id','category.vendor_id')
+                        ->select('category.*','v.id as vendor_id','v.name as vendor_name')
+                        ->paginate($perPage);
         }
 
         return view('category.index', compact('category'));
@@ -41,7 +54,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('category.create');
+        $vendors = Vendor::pluck('name','id');
+        return view('category.create', compact('categories','vendors'));
     }
 
     /**
@@ -57,9 +71,9 @@ class CategoryController extends Controller
             'category_name' => 'required'
         ]);
         $requestData = $request->all();
+        $requestData['vendor_id'] = (int) $request->vendor_id;
+        unset($requestData['_token']);
         
-        // dd($requestData);
-        // Category::create($requestData);
         $name   = $request->category_name;
         $category_avatar = $request->category_avatar;
 
@@ -73,17 +87,24 @@ class CategoryController extends Controller
             if(Input::file('category_avatar')->move('images/category_avatar/', $pathAvatar)) {
 
                 $category_avatar = $nameAvatar;
+                $requestData['category_avatar'] = $category_avatar;
             }
 
         }else{
             $category_avatar=null;
         }
-        
-        $c = new Category();
-        $c->vendor_id = Auth::User()->vendor_id;
-        $c->category_name   = $name;
-        $c->category_avatar = $category_avatar;
-        $c->save();
+
+        if(Auth::user()->role_id == 1){  
+
+           Category::insert($requestData);
+        }else if(Auth::user()->role_id == 2){
+            $c = new Category();
+            $c->vendor_id = Auth::User()->vendor_id;
+            $c->category_name   = $name;
+            $c->category_avatar = $category_avatar;
+            $c->save();
+        }
+
 
         return redirect('admin/category')->with('flash_message', 'Category added!');
     }
@@ -97,7 +118,11 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category = Category::findOrFail($id);
+        // $category = Category::findOrFail($id);
+        $category = Category::where('category.id',$id)
+                        ->leftJoin('vendor as v','v.id','category.vendor_id')
+                        ->select('category.*','v.id as vendor_id','v.name as vendor_name')
+                        ->first();
 
         return view('category.show', compact('category'));
     }
@@ -111,9 +136,21 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::findOrFail($id);
+        // $category = Category::findOrFail($id);
+        $category = Category::where('category.id',$id)
+                        ->leftJoin('vendor as v','v.id','category.vendor_id')
+                        ->select(
+                            'category.id as category_id',
+                            'category.vendor_id as vendor_id',
+                            'category.category_name as category_name',
+                            'category.category_avatar as category_avatar',
+                            'category.created_at as created_at',
+                            'v.name as vendor_name'
+                            )->first();
 
-        return view('category.edit', compact('category'));
+        $vendors = Vendor::pluck('name','id');
+
+        return view('category.edit', compact('category','vendors'));
     }
 
     /**
@@ -126,6 +163,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        dd($request->all());
         $this->validate($request, [
 			'category_name' => 'required'
 		]);
@@ -169,9 +207,17 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($id)
-    {
+    {   
+        $id = (int) $id;
         $c = Category::find($id);
-        $c = $c->delete($id);
+        $products = Product::where('category_id',$id)->get();
+          
+        if(count($products) > 0){
+            return redirect('admin/category')->with('warning_message', 'Category cannot be deleted, There are some products associated with this category!');
+        }else{
+            $c = $c->destroy($id);
+        }
+
 
         return redirect('admin/category')->with('flash_message', 'Category deleted!');
     }

@@ -24,49 +24,44 @@ class AdminController extends Controller
 
     public function __construct()
     {      
-        $this->middleware('auth');
-        
-/*        $user       = User::all();
-        $products   = Product::all();
-        $messages   = ContactUs::all();
-        $categories = Category::all();
-        $orders     = Order::all();
-        
-
-        $dataPoints = array( 
-                        array("label"=>"Users", count($user)),
-                        array("label"=>"Products", count($products)),
-                        array("label"=>"Categories", count($categories)),
-                        array("label"=>"Messages", count($messages)),
-                        array("label"=>"Orders", count($orders))
-                    );
-*/
         return view('admin/dashboard');
-        
-        #return redirect('home');
-
-        $this->middleware(function (Request $request, $next) {
-            
-            /*$user = \Auth::user();
-
-                if ( $user->role_id == 3 ) {
-                	dd('/excissse');
-    	        }
-    	        else if ( $user->role_id == 4 ) {
-                	dd('/sales_aacenter');
-    	        }
-    	        else{
-    	        	// dd('azzxx');
-    	        	\Auth()->logout();
-	        }*/
-
-        });
-
+        // return redirect('home');
     }
 
     public function index()
     {   
-    	return view('admin.dashboard');
+        $this->middleware('auth');
+        // $this->middleware(function (Request $request, $next) {});
+
+        $user = \Auth::user();
+
+        if ( $user->role_id == 1 ) {
+            $user       = User::all();
+            $products   = Product::all();
+            $messages   = ContactUs::all();
+            $categories = Category::all();
+            $orders     = Order::all();
+            
+
+            $dataPoints = array( 
+                            array("label"=>"Users", count($user)),
+                            array("label"=>"Products", count($products)),
+                            array("label"=>"Categories", count($categories)),
+                            array("label"=>"Messages", count($messages)),
+                            array("label"=>"Orders", count($orders))
+                        );
+
+            return view('admin.dashboard')->with('dataPoints',$dataPoints);
+            dd('/super admin');
+        }
+        else if ( $user->role_id == 2 ) {
+            dd('/vendor admin');
+        }
+        else{
+            // dd('azzxx');
+            \Auth()->logout();
+        }
+
     }
 
     public function logout(Request $request) {

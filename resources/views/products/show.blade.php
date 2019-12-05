@@ -30,6 +30,7 @@
                         <th>Name</th>
                         <th>Description</th>
                         <th>Category</th>
+                        <th>Vendor</th>
                         <th>Price</th>
                      </tr>
                   </thead>
@@ -39,6 +40,7 @@
                         <td>{{ $product->product_name }}</td>
                         <td>{{ $product->product_description }}</td>
                         <td>{{ $product->category_name }}</td>
+                        <td>{{ $product->vendor_name }}</td>
                         <td>{{ "AED ".$product->product_price }}</td>
                      </tr>
                   </tbody>

@@ -37,6 +37,10 @@
                                         <th> Name </th>
                                         <td> {{ $category->category_name }} </td>
                                     </tr>
+                                    <tr>
+                                        <th> Vendor Name </th>
+                                        <td> {{ $category->vendor_name }} </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
