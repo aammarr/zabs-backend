@@ -52,6 +52,7 @@ class LoginController extends Controller
             return redirect('/admin/user');
         }
         else{
+
             return redirect('/login');
         }
     }

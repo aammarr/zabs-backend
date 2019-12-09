@@ -3,11 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Log;
 use DB;
 
 class Banner extends Model
 {
-    /**
+    
+    use SoftDeletes;
+     /**
      * The database table used by the model.
      *
      * @var string
@@ -36,4 +40,6 @@ class Banner extends Model
 
         return $data;
     }
+
+
 }

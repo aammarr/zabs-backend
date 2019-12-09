@@ -10,11 +10,11 @@
                     <div class="panel-heading">ContactU {{ $contactus->id }}</div>
                     <div class="panel-body">
 
-                        <a href="{{ url('/admin/contact-us') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                        <a href="{{ url('/admin/contact-us/' . $contactus->id . '/edit') }}" title="Edit ContactU"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                        <a href="{{ url('/vendor/contact-us') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/vendor/contact-us/' . $contactus->id . '/edit') }}" title="Edit ContactU"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                         {!! Form::open([
                             'method'=>'DELETE',
-                            'url' => ['admin/contactus', $contactus->id],
+                            'url' => ['vendor/contactus', $contactus->id],
                             'style' => 'display:inline'
                         ]) !!}
                             {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(

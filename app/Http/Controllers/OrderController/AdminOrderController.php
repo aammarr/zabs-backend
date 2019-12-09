@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\ContactController;
+namespace App\Http\Controllers\OrderController;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Order;
 use Auth;
 use Config;
-use App\ContactUs;
 use Illuminate\Http\Request;
 
-class ContactUsController extends Controller
+class AdminOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,19 +21,26 @@ class ContactUsController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 25;
-        $vendor_id = Auth::user()->vendor_id;
+
 
         if (!empty($keyword)) {
-            $contactus = ContactUs::where('name', 'LIKE', "%$keyword%")
-				->orWhere('email', 'LIKE', "%$keyword%")
-				->orWhere('mobile', 'LIKE', "%$keyword%")
-				->orWhere('title', 'LIKE', "%$keyword%")
-				->paginate($perPage);
+
+            $order = Order::leftJoin('vendor as v','v.id','orders.vendor_id')
+            	->where(function($q) use ($keyword){
+                    $q->where('name', 'LIKE', "%$keyword%")
+                ->orWhere('phone', 'LIKE', "%$keyword%")
+                ->orWhere('total_amount', 'LIKE', "%$keyword%");
+                })
+                ->select('orders.*','v.name as vendor_name')
+                ->orderBy('created_at','desc')
+                ->paginate($perPage);
         } else {
-            $contactus = ContactUs::where('vendor_id',$vendor_id)->paginate($perPage);
+            $order = Order::leftJoin('vendor as v','v.id','orders.vendor_id')
+            		->select('orders.*','v.name as vendor_name')
+            		->paginate($perPage);
         }
 
-        return view('contact-us.index', compact('contactus'));
+        return view('admin_order.index', compact('order'));
     }
 
     /**
@@ -43,7 +50,7 @@ class ContactUsController extends Controller
      */
     public function create()
     {
-        return view('contact-us.create');
+        return view('order.create');
     }
 
     /**
@@ -58,9 +65,9 @@ class ContactUsController extends Controller
         
         $requestData = $request->all();
         
-        ContactUs::create($requestData);
+        Order::create($requestData);
 
-        return redirect('vendor/contact-us')->with('flash_message', 'ContactUs added!');
+        return redirect('admin/order')->with('flash_message', 'Order added!');
     }
 
     /**
@@ -72,9 +79,12 @@ class ContactUsController extends Controller
      */
     public function show($id)
     {
-        $contactus = ContactUs::findOrFail($id);
-
-        return view('contact-us.show', compact('contactus'));
+        // $order = Order::find($id);
+        // dd($order);
+        $o      = new Order();
+        $order  = $o->getOrderDetailsById($id);
+        
+        return view('admin_order.show', compact('order'));
     }
 
     /**
@@ -86,9 +96,9 @@ class ContactUsController extends Controller
      */
     public function edit($id)
     {
-        $contactus = ContactUs::findOrFail($id);
+        $order = Order::findOrFail($id);
 
-        return view('contact-us.edit', compact('contactus'));
+        return view('order.edit', compact('order'));
     }
 
     /**
@@ -104,10 +114,10 @@ class ContactUsController extends Controller
         
         $requestData = $request->all();
         
-        $contactus = ContactUs::findOrFail($id);
-        $contactus->update($requestData);
+        $order = Order::findOrFail($id);
+        $order->update($requestData);
 
-        return redirect('vendor/contact-us')->with('flash_message', 'ContactUs updated!');
+        return redirect('admin/order')->with('flash_message', 'Order updated!');
     }
 
     /**
@@ -119,8 +129,8 @@ class ContactUsController extends Controller
      */
     public function destroy($id)
     {
-        ContactUs::destroy($id);
+        Order::destroy($id);
 
-        return redirect('vendor/contact-us')->with('flash_message', 'ContactUs deleted!');
+        return redirect('admin/order')->with('flash_message', 'Order deleted!');
     }
 }

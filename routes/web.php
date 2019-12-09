@@ -18,13 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 
-// //Main Admin
-// Route::group(['prefix'=>'admin','middleware'=>'auth.basic','namespace'=>'Admin'],function(){
 
-// });
+
 
 Route::get('/home', 'Admin\AdminController@index');
-
 Route::get('admin', 'Admin\AdminController@index');
 
 
@@ -39,29 +36,48 @@ Route::get('/change_password', function(){
 });
 Route::post('/admin/change_password','UserController\\UserController@changePasssword');
 
-//generator
-Route::get('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
-Route::post('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@postGenerator']);
 
-Route::resource('admin/test', 'TestController\\TestController');
 
 
 // Route::get('test', function)
 Route::get('/logout','Auth\LoginController@logout');
 
-Route::resource('admin/user', 'UserController\\UserController');
-Route::resource('admin/category', 'CategoryController\\CategoryController');
-Route::resource('admin/products', 'ProductController\\ProductsController');
-Route::get('admin/products/inStock/{id}', 'ProductController\\ProductsController@inStock');
-Route::get('admin/products/outStock/{id}', 'ProductController\\ProductsController@outStock');
-Route::resource('admin/order', 'OrderController\\OrderController');
-Route::resource('admin/contact-us', 'ContactController\\ContactUsController');
-Route::resource('admin/settings', 'SettingController\\SettingsController');
-Route::resource('admin/banner', 'BannerController\\BannerController');
+
+// Route::resource('admin/category', 'CategoryController\\CategoryController');
+// Route::resource('admin/products', 'ProductController\\ProductsController');
+// Route::resource('admin/contact-us', 'ContactController\\ContactUsController');
+// Route::resource('admin/settings', 'SettingController\\SettingsController');
+// Route::resource('admin/banner', 'BannerController\\BannerController');
+// Route::resource('admin/order', 'OrderController\\OrderController');
+
+// //Main Admin
+Route::group(['prefix'=>'admin','middleware'=>'auth.basic'],function(){
+	
+	Route::resource('/user', 'UserController\\UserController');
+	Route::resource('/vendor', 'VendorController\\VendorController');
+	Route::resource('/contact-us', 'ContactController\\ContactUsController');
+	Route::resource('/order', 'OrderController\\AdminOrderController');
+
+});
 
 
-// Route::group(['prefix'=>'admin','middleware'=>'auth.basic','namespace'=>'Admin'],function(){
-// 	 Route::resource('/category', 'CategoryController\\CategoryController');
-// });
+//vendor Admin 
+Route::group(['prefix'=>'vendor','middleware'=>'vendor.auth'],function(){
 
-Route::resource('admin/vendor', 'VendorController\\VendorController');
+	Route::resource('/category', 'CategoryController\\CategoryController');
+	Route::resource('/products', 'ProductController\\ProductsController');
+	// Route::resource('/contact-us', 'ContactController\\ContactUsController');
+	Route::resource('/settings', 'SettingController\\SettingsController');
+	Route::resource('/banner', 'BannerController\\BannerController');	
+	Route::resource('/order', 'OrderController\\OrderController');
+
+	Route::get('/products/inStock/{id}', 'ProductController\\ProductsController@inStock');
+	Route::get('/products/outStock/{id}', 'ProductController\\ProductsController@outStock');
+});
+
+
+//generator
+Route::get('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@getGenerator']);
+Route::post('admin/generator', ['uses' => '\Appzcoder\LaravelAdmin\Controllers\ProcessController@postGenerator']);
+
+Route::resource('admin/test', 'TestController\\TestController');

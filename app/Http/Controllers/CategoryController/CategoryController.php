@@ -30,7 +30,8 @@ class CategoryController extends Controller
             $category = Category::leftJoin('vendor as v','v.id','category.vendor_id')
                 ->OrWhere('v.name', 'LIKE', "%$keyword%")
                 ->OrWhere('category_name', 'LIKE', "%$keyword%")
-                 ->select(
+                ->where('v.id',$vendor_id)
+                ->select(
                             'category.id as category_id',
                             'category.vendor_id as vendor_id',
                             'category.category_name as category_name',
@@ -40,6 +41,7 @@ class CategoryController extends Controller
 				->paginate($perPage);
         } else {
             $category = Category::leftJoin('vendor as v','v.id','category.vendor_id')
+                        ->where('v.id',$vendor_id)
                         ->select('category.*','v.id as vendor_id','v.name as vendor_name')
                         ->paginate($perPage);
         }
@@ -71,7 +73,7 @@ class CategoryController extends Controller
             'category_name' => 'required'
         ]);
         $requestData = $request->all();
-        $requestData['vendor_id'] = (int) $request->vendor_id;
+        $requestData['vendor_id'] = (int) $request->vendor_id?(int) $request->vendor_id:Auth::user()->vendor_id;
         unset($requestData['_token']);
         
         $name   = $request->category_name;
@@ -95,7 +97,6 @@ class CategoryController extends Controller
         }
 
         if(Auth::user()->role_id == 1){  
-
            Category::insert($requestData);
         }else if(Auth::user()->role_id == 2){
             $c = new Category();
@@ -104,9 +105,9 @@ class CategoryController extends Controller
             $c->category_avatar = $category_avatar;
             $c->save();
         }
+       
 
-
-        return redirect('admin/category')->with('flash_message', 'Category added!');
+        return redirect('vendor/category')->with('flash_message', 'Category added!');
     }
 
     /**
@@ -148,9 +149,8 @@ class CategoryController extends Controller
                             'v.name as vendor_name'
                             )->first();
 
-        $vendors = Vendor::pluck('name','id');
 
-        return view('category.edit', compact('category','vendors'));
+        return view('category.edit', compact('category'));
     }
 
     /**
@@ -163,7 +163,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request->all());
+
         $this->validate($request, [
 			'category_name' => 'required'
 		]);
@@ -196,7 +196,7 @@ class CategoryController extends Controller
         $category->save();
 
 
-        return redirect('admin/category')->with('flash_message', 'Category updated!');
+        return redirect('vendor/category')->with('flash_message', 'Category updated!');
     }
 
     /**
@@ -213,12 +213,12 @@ class CategoryController extends Controller
         $products = Product::where('category_id',$id)->get();
           
         if(count($products) > 0){
-            return redirect('admin/category')->with('warning_message', 'Category cannot be deleted, There are some products associated with this category!');
+            return redirect('vendor/category')->with('warning_message', 'Category cannot be deleted, There are some products associated with this category!');
         }else{
             $c = $c->destroy($id);
         }
 
 
-        return redirect('admin/category')->with('flash_message', 'Category deleted!');
+        return redirect('vendor/category')->with('flash_message', 'Category deleted!');
     }
 }

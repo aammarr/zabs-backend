@@ -3,24 +3,21 @@
 		"section": "Modules",
 		"items": [
 			{
-			"title": "Category",
-			"url": "\/admin\/category"
+				"title": "Category",
+				"url": "\/vendor\/category"
 			}, 
 			{
 				"title": "Products",
-				"url": "\/admin\/products"
+				"url": "\/vendor\/products"
 			}, {
 				"title": "Order",
-				"url": "\/admin\/order"
+				"url": "\/vendor\/order"
 			}, {
 				"title": "ContactUs",
-				"url": "\/admin\/contact-us"
-			}, {
-				"title": "Settings",
-				"url": "\/admin\/settings"
+				"url": "\/vendor\/contact-us"
 			}, {
 				"title": "Banner",
-				"url": "\/admin\/banner"
+				"url": "\/vendor\/banner"
 			}
 		]
 	}]

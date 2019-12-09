@@ -10,7 +10,7 @@
 
                     <div class="panel-heading">Edit Product #{{ $product[0]->id }}</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/products') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/vendor/products') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
                         @if ($errors->any())
@@ -23,7 +23,7 @@
 
                         {!! Form::model($product[0], [
                             'method' => 'PATCH',
-                            'url' => ['/admin/products', $product[0]->id],
+                            'url' => ['/vendor/products', $product[0]->id],
                             'class' => 'form-horizontal',
                             'files' => true
                         ]) !!}

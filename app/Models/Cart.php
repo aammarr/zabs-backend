@@ -14,7 +14,7 @@ class Cart extends Model
     protected $table = 'carts';
 
     public function getUserCart($user_id){
-
+        $cart_total=0;
     	$data = DB::table('carts as c')
     			->leftJoin('products as p','p.id','c.product_id')
     			->where('c.deleted_at',null)
@@ -30,7 +30,14 @@ class Cart extends Model
     			)
     			->orderBy('c.id','desc')
     			->get();
-
+        // foreach($data as $d){
+        
+        //     $cart_total+=$d->total_price;
+        //     $cart_total=$cart_total+$d->total_price;
+        //     // $cart_total=bcadd($d->total_price,$d->total_price,1);
+        // }
+        // $data['cart_total']=$cart_total;
+                
     	return $data;
     }
 }

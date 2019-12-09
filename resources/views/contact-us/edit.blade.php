@@ -9,7 +9,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Edit ContactU #{{ $contactus->id }}</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/contact-us') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/vendor/contact-us') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -23,7 +23,7 @@
 
                         {!! Form::model($contactus, [
                             'method' => 'PATCH',
-                            'url' => ['/admin/contact-us', $contactus->id],
+                            'url' => ['/vendor/contact-us', $contactus->id],
                             'class' => 'form-horizontal',
                             'files' => true
                         ]) !!}

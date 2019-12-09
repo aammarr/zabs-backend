@@ -30,8 +30,7 @@ class BannerController extends Controller
         } else {
             $banner = Banner::where('vendor_id',$vendor_id)->paginate($perPage);
         }
-
-
+        
         return view('banner.index', compact('banner'));
     }
 
@@ -46,7 +45,7 @@ class BannerController extends Controller
         $banner = Banner::where('vendor_id',$vendor_id)->get();
 
         if(count($banner)==5){
-            return redirect('admin/banner')->with('warning_message', 'Only 5 Banner can be added at a time!');
+            return redirect('vendor/banner')->with('warning_message', 'Only 5 Banner can be added at a time!');
 
         }
         else{
@@ -94,7 +93,7 @@ class BannerController extends Controller
         $b->banner = $banner;
         $b->save(); 
 
-        return redirect('admin/banner')->with('flash_message', 'Banner added!');
+        return redirect('vendor/banner')->with('flash_message', 'Banner added!');
     }
 
     /**
@@ -137,11 +136,27 @@ class BannerController extends Controller
     {
         
         $requestData = $request->all();
-        
-        $banner = Banner::findOrFail($id);
-        $banner->update($requestData);
+       
 
-        return redirect('admin/banner')->with('flash_message', 'Banner updated!');
+         if(Input::file('banner')){
+            $avatarDocument = Input::file('banner');
+            $avatarfile = time() ."." . $avatarDocument->getClientOriginalExtension();
+            $nameAvatar = url('images/banner').'/'.$avatarfile;
+            $pathAvatar = $nameAvatar;
+            
+            if(Input::file('banner')->move('images/banner/', $pathAvatar)) {
+
+                $banner = $nameAvatar;
+            }
+        }
+
+        $bannerObj = Banner::findOrFail($id);
+
+        // $bannerObj->update($requestData);
+        $bannerObj->where('id',$id)
+                ->update(['banner' => $banner]);
+
+        return redirect('vendor/banner')->with('flash_message', 'Banner updated!');
     }
 
     /**
@@ -155,6 +170,6 @@ class BannerController extends Controller
     {
         Banner::destroy($id);
 
-        return redirect('admin/banner')->with('flash_message', 'Banner deleted!');
+        return redirect('vendor/banner')->with('flash_message', 'Banner deleted!');
     }
 }

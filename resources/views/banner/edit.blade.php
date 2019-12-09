@@ -9,7 +9,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Edit Banner #{{ $banner->id }}</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/banner') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/vendor/banner') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -23,7 +23,7 @@
 
                         {!! Form::model($banner, [
                             'method' => 'PATCH',
-                            'url' => ['/admin/banner', $banner->id],
+                            'url' => ['/vendor/banner', $banner->id],
                             'class' => 'form-horizontal',
                             'files' => true
                         ]) !!}

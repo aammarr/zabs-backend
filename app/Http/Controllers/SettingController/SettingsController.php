@@ -23,13 +23,33 @@ class SettingsController extends Controller
         $perPage = 25;
         $vendor_id = Auth::user()->vendor_id;
 
-
         if (!empty($keyword)) {
-            $settings = Setting::where('vendor_id', 'LIKE', "%$keyword%")
-				->paginate($perPage);
+            $settings = Setting::leftJoin('vendor as v','v.id','settings.vendor_id')
+                        ->leftJoin('users as u','u.id','v.user_id')
+                        ->select('u.email','v.name','settings.*')
+                        ->where('delivery_fee', 'LIKE', "%$keyword%")
+                        ->paginate($perPage);
         } else {
-            $settings = Setting::where('vendor_id',$vendor_id)->paginate($perPage);
+            $settings = Setting::leftJoin('vendor as v','v.id','settings.vendor_id')
+                        ->leftJoin('users as u','u.id','v.user_id')
+                        ->select('u.email','v.name','settings.*')
+                        ->paginate($perPage);
         }
+
+
+        // if(Auth::user()->role_id == 1){
+            
+        // }
+        // else if(Auth::user()->role_id == 2){
+        //     dd("2");
+
+        // }else{
+        //     //logout
+        //     dd('logout');
+        // }
+
+
+        
 
         return view('settings.index', compact('settings'));
     }
@@ -70,7 +90,11 @@ class SettingsController extends Controller
      */
     public function show($id)
     {
-        $setting = Setting::findOrFail($id);
+        $setting = Setting::leftJoin('vendor as v','v.id','settings.vendor_id')
+                        ->leftJoin('users as u','u.id','v.user_id')
+                        ->select('u.email','v.name','settings.*')
+                        ->where('settings.id',$id)
+                        ->first();
 
         return view('settings.show', compact('setting'));
     }

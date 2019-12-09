@@ -28,12 +28,12 @@ class CartController extends Controller
     }
 
     public function getCart(Request $request){
-        
+
         $user_id        = $request['user']->id;
 
         $c          = new Cart();
         $response   = $c->getUserCart($user_id);
-
+        // dd($response);
         if($response){
             return $this->sendResponse(Config::get('constants.status.OK'),$response, null);
         }

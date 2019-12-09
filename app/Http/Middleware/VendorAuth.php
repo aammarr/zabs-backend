@@ -10,7 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 
-class AdminAuth {
+class VendorAuth {
 
  /**
   * Validate Token request
@@ -23,8 +23,8 @@ class AdminAuth {
 
  public function handle($request, Closure $next, $guard = null)
  {
-    $request['admin_data']=Auth::user();
-    
+    $request['vendor_data']=Auth::user();
+
     if (Auth::guard($guard)->guest())
     {
       if ($request->ajax() || $request->wantsJson()) {
@@ -35,7 +35,7 @@ class AdminAuth {
         return redirect()->guest('login');
       }
     }
-    if(session('full_authenticated'))
+    if($request['vendor_data']->role_id == 2) 				//session('full_authenticated')
     {
       return $next($request);
     }

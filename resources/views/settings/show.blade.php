@@ -31,6 +31,14 @@
                             <table class="table table-borderless">
                                 <tbody>
                                     <tr>
+                                        <th>Vendor</th>
+                                        <td>{{ $setting->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{{ $setting->email }}</td>
+                                    </tr>
+                                    <tr>
                                         <th>Delivery Charges</th>
                                         <td>{{ $setting->delivery_fee }}</td>
                                     </tr>

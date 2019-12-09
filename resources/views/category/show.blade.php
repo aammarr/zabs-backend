@@ -9,11 +9,11 @@
                     <div class="panel-heading">Category {{ $category->id }}</div>
                     <div class="panel-body">
 
-                        <a href="{{ url('/admin/category') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                        <a href="{{ url('/admin/category/' . $category->id . '/edit') }}" title="Edit Category"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                        <a href="{{ url('/vendor/category') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/vendor/category/' . $category->id . '/edit') }}" title="Edit Category"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                         {!! Form::open([
                             'method'=>'DELETE',
-                            'url' => ['admin/category', $category->id],
+                            'url' => ['vendor/category', $category->id],
                             'style' => 'display:inline'
                         ]) !!}
                             {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
@@ -29,7 +29,7 @@
                         <div class="table-responsive">
                             <table class="table table-borderless">
                                 <tbody>
-                                    <tr>
+                                    <tr> 
                                         <th>ID</th>
                                         <td>{{ $category->id }}</td>
                                     </tr>
@@ -40,6 +40,14 @@
                                     <tr>
                                         <th> Vendor Name </th>
                                         <td> {{ $category->vendor_name }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> Image </th>
+                                        <td> 
+                                            <a class="thumnail" href="{{ $category->category_avatar }}" target="_blank">
+                                                <img src="{{ $category->category_avatar }}" class="img-circle" style="height: 200px;width: 200px;">
+                                            </a> 
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

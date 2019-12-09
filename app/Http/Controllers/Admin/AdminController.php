@@ -33,28 +33,28 @@ class AdminController extends Controller
         $this->middleware('auth');
         // $this->middleware(function (Request $request, $next) {});
 
-        $user = \Auth::user();
+        $auth_user = \Auth::user();
+        $user = User::all();
+        $products   = Product::all();
+        $messages   = ContactUs::all();
+        $categories = Category::all();
+        $orders     = Order::all();
+        
 
-        if ( $user->role_id == 1 ) {
-            $user       = User::all();
-            $products   = Product::all();
-            $messages   = ContactUs::all();
-            $categories = Category::all();
-            $orders     = Order::all();
+        $dataPoints = array( 
+                        array("label"=>"Users", count($user)),
+                        array("label"=>"Products", count($products)),
+                        array("label"=>"Categories", count($categories)),
+                        array("label"=>"Messages", count($messages)),
+                        array("label"=>"Orders", count($orders))
+                    );
+        if ( $auth_user->role_id == 1 ) {
             
 
-            $dataPoints = array( 
-                            array("label"=>"Users", count($user)),
-                            array("label"=>"Products", count($products)),
-                            array("label"=>"Categories", count($categories)),
-                            array("label"=>"Messages", count($messages)),
-                            array("label"=>"Orders", count($orders))
-                        );
-
             return view('admin.dashboard')->with('dataPoints',$dataPoints);
-            dd('/super admin');
         }
-        else if ( $user->role_id == 2 ) {
+        else if ( $auth_user->role_id == 2 ) {
+            return view('admin.vendor_dashboard')->with('dataPoints',$dataPoints);
             dd('/vendor admin');
         }
         else{

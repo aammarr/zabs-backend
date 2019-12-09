@@ -20,25 +20,12 @@
     </div>
 </div>
 <div class="form-group">
-    <label for="select" class="col-lg-4 control-label">Vendor</label>
-    <div class="col-md-4">
-      <select class="form-control" id="vendor" name="vendor" required="required">
-        <option value=""> --Select-- </option> 
-      <?php foreach ( $vendors as $key => $v ): ?>
-                <option value="<?php echo $key; ?>"><?php echo $v; ?></option>
-              <?php endforeach; ?>
-      </select>
-    </div>
-</div>
-<div class="form-group">
     <label for="select" class="col-lg-4 control-label">Category</label>
     <div class="col-md-4">
       <select class="form-control" id="category" name="category" required="required">
         <option value=""> --Select-- </option>
       <?php foreach ( $categories as $key => $c ): ?>
-
                 <option value="<?php echo $key; ?>"><?php echo $c; ?></option>
-
               <?php endforeach; ?>
       </select>
     </div>

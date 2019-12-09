@@ -9,7 +9,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Create New Order</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/order') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/vendor/order') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -21,7 +21,7 @@
                             </ul>
                         @endif
 
-                        {!! Form::open(['url' => '/admin/order', 'class' => 'form-horizontal', 'files' => true]) !!}
+                        {!! Form::open(['url' => '/vendor/order', 'class' => 'form-horizontal', 'files' => true]) !!}
 
                         @include ('order.form')
 

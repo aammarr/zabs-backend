@@ -29,29 +29,13 @@ class ProductsController extends Controller
         $vendor_id = Auth::user()->vendor_id;
 
         if (!empty($keyword)) {
-            /*$products = Product::where('vendor_id',$vendor_id)->orwhere('product_name', 'LIKE', "%$keyword%")
-				->orWhere('product_description', 'LIKE', "%$keyword%")
-				->orWhere('product_price', 'LIKE', "%$keyword%")
-				->orWhere('product_pic_1', 'LIKE', "%$keyword%")
-				->orWhere('product_pic_2', 'LIKE', "%$keyword%")
-				->orWhere('product_pic_3', 'LIKE', "%$keyword%")
-				->orWhere('product_pic_4', 'LIKE', "%$keyword%")
-				->orWhere('product_pic_5', 'LIKE', "%$keyword%")
-				->paginate($perPage);*/
-
             $products = Product::leftJoin('category as c','c.id','products.category_id')
-                        ->leftJoin('vendor as v','v.id','products.vendor_id')
+                        // ->leftJoin('vendor as v','v.id','products.vendor_id')
                         ->where(function($q) use ($keyword){
                             $q->orwhere('products.product_name', 'LIKE', "%$keyword%")
                                 ->orWhere('products.product_description', 'LIKE', "%$keyword%")
                                 ->orWhere('products.product_price', 'LIKE', "%$keyword%")
-                                ->orWhere('v.name', 'LIKE', "%$keyword%")
                                 ->orWhere('c.category_name', 'LIKE', "%$keyword%");
-                                // ->orWhere('products.product_pic_1', 'LIKE', "%$keyword%")
-                                // ->orWhere('products.product_pic_2', 'LIKE', "%$keyword%")
-                                // ->orWhere('products.product_pic_3', 'LIKE', "%$keyword%")
-                                // ->orWhere('products.product_pic_4', 'LIKE', "%$keyword%")
-                                // ->orWhere('products.product_pic_5', 'LIKE', "%$keyword%");
                         })
                         ->orderBy('products.created_at','desc')
                 ->paginate($perPage);
@@ -59,10 +43,10 @@ class ProductsController extends Controller
         } else {
 
             $products = Product::leftJoin('category as c','c.id','products.category_id')
-                        ->leftJoin('vendor as v','v.id','products.vendor_id')
+                        // ->leftJoin('vendor as v','v.id','products.vendor_id')
                         ->whereNull('products.deleted_at')
-                        // ->where('products.vendor_id',$vendor_id)
-                        ->select('products.*','c.category_name','v.name')
+                        ->where('products.vendor_id',$vendor_id)
+                        ->select('products.*','c.category_name','c.category_name')
                         ->orderBy('products.created_at','desc')
                         ->paginate($perPage);
         }
@@ -77,7 +61,7 @@ class ProductsController extends Controller
         $product->stock = "1";
         $product->save();
 
-        return redirect('admin/products');
+        return redirect('vendor/products');
     }
 
     public function outStock(Request $request){
@@ -88,7 +72,7 @@ class ProductsController extends Controller
         $product->stock = "0";
         $product->save();
 
-        return redirect('admin/products');
+        return redirect('vendor/products');
     }
 
     /**
@@ -98,13 +82,14 @@ class ProductsController extends Controller
      */
     public function create()
     {   
-        // $vendor_id = Auth::user()->vendor_id;
-        // $categories = Category::where('vendor_id',$vendor_id)->pluck('category_name','id');
-        
+        $vendor_id = Auth::user()->vendor_id;
+        $categories = Category::where('vendor_id',$vendor_id)->pluck('category_name','id');
+
         if(Auth::user()->role_id == 1){
             $vendors = Vendor::pluck('name','id');
             $categories = Category::pluck('category_name','id');
-        }else{
+        }
+        else if(Auth::user()->role_id == 2){
             $categories = Category::where('vendor_id',$vendor_id)->pluck('category_name','id');
         }
 
@@ -226,7 +211,7 @@ class ProductsController extends Controller
         $p->stock           = 1;
         $p->save();
 
-        return redirect('admin/products')->with('flash_message', 'Product added!');
+        return redirect('vendor/products')->with('flash_message', 'Product added!');
     }
 
     /**
@@ -267,14 +252,16 @@ class ProductsController extends Controller
 
         $vendor_id = Auth::user()->vendor_id;
 
-        if(Auth::user()->role_id == 1){
-            $vendors = Vendor::pluck('name','id');
-            $categories = Category::pluck('category_name','id');
-        }else{
-            $categories = Category::where('vendor_id',$vendor_id)->pluck('category_name','id');
-        }
+        // if(Auth::user()->role_id == 1){
+        //     $vendors = Vendor::pluck('name','id');
+        //     $categories = Category::pluck('category_name','id');
+        // }else{
+        //     $categories = Category::where('vendor_id',$vendor_id)->pluck('category_name','id');
+        // }
+        
+        $categories = Category::where('vendor_id',$vendor_id)->pluck('category_name','id');
 
-        return view('products.edit', compact('product','categories','vendors'));
+        return view('products.edit', compact('product','categories'));
         // return view('products.edit')->with('product');
     }
 
@@ -288,6 +275,7 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $this->validate($request, [
             'product_name' => 'required',
             'product_description' => 'required',
@@ -381,12 +369,12 @@ class ProductsController extends Controller
         $product->product_pic_3 = $product_pic_3;
         $product->product_pic_4 = $product_pic_4;
         $product->product_pic_5 = $product_pic_5;
-        $p->stock = 1;
+        $product->stock = 1;
         $product->save();
 
         $product->update($requestData);
 
-        return redirect('admin/products')->with('flash_message', 'Product updated!');
+        return redirect('vendor/products')->with('flash_message', 'Product updated!');
     }
 
     /**
@@ -400,6 +388,6 @@ class ProductsController extends Controller
     {
         Product::destroy($id);
 
-        return redirect('admin/products')->with('flash_message', 'Product deleted!');
+        return redirect('vendor/products')->with('flash_message', 'Product deleted!');
     }
 }

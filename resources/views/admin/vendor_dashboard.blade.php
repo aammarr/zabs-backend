@@ -3,40 +3,37 @@
 @section('content')
 <?php
     $vendor_id = Auth::user()->vendor_id;
- 
+
     $user = DB::table('users as u')
                 ->where('u.deleted_at',null)
                 ->select('u.*')
                 ->get();
 
-    $vendor = DB::table('vendor as v')
-                ->where('v.deleted_at',null)
-                ->select('v.*')
-                ->get();
-
     $categories = DB::table('category as c')
                 ->where('c.deleted_at',null)
+                ->where('c.vendor_id',$vendor_id)
                 ->select('c.*')
                 ->get();
 
     $products = DB::table('products as p')
                 ->where('p.deleted_at',null)
+                ->where('p.vendor_id',$vendor_id)
                 ->select('p.*')
                 ->get();
 
     $orders = DB::table('orders as o')
                 ->where('o.deleted_at',null)
+                ->where('o.vendor_id',$vendor_id)
                 ->select('o.*')
                 ->get();
 
     $messages = DB::table('contact_us as cu')
                 ->where('cu.deleted_at',null)
+                ->where('cu.vendor_id',$vendor_id)
                 ->select('cu.*')
                 ->get();
-
-  $dataPoints = array( 
+    $dataPoints = array( 
                 array("label"=>"Users", "y"=>count($user)),
-                array("label"=>"Vendors", "y"=>count($vendor)),
                 array("label"=>"Products", "y"=>count($products)),
                 array("label"=>"Categories", "y"=>count($categories)),
                 array("label"=>"Messages", "y"=>count($messages)),

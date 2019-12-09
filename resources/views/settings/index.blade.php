@@ -30,6 +30,8 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
+                                        <th>Vendor</th>
+                                        <th>Email</th>
                                         <th>Delivery Charges</th>
                                         <th>Terms N Conditions</th>
                                         <th>Actions</th>
@@ -38,6 +40,8 @@
                                 <tbody>
                                 @foreach($settings as $item)
                                     <tr>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->email }}</td>
                                         <td>{{ $item->delivery_fee }}</td>
                                         <td>{{ $item->t_n_c }}</td>
                                         <td>

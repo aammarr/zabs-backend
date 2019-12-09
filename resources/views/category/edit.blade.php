@@ -9,7 +9,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Edit Category #{{ $category->category_id }}</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/category') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/vendor/category') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
                         @if ($errors->any())
@@ -22,12 +22,12 @@
 
                         {!! Form::model($category, [
                             'method' => 'PATCH',
-                            'url' => ['/admin/category', $category->id],
+                            'url' => ['/vendor/category', $category->id],
                             'class' => 'form-horizontal',
                             'files' => true
                         ]) !!}
-
-                        @include ('category.edit_form', ['submitButtonText' => 'Update'])
+                        
+                        @include ('category.form', ['submitButtonText' => 'Update'])
 
                         {!! Form::close() !!}
 

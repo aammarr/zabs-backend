@@ -9,7 +9,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Create New Product</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/products') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/vendor/products') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -21,8 +21,7 @@
                             </ul>
                         @endif
 
-                        {!! Form::open(['url' => '/admin/products', 'class' => 'form-horizontal', 'files' => true]) !!}
-
+                        {!! Form::open(['url' => '/vendor/products', 'class' => 'form-horizontal', 'files' => true]) !!}
                         @include ('products.form')
 
                         {!! Form::close() !!}

@@ -8,11 +8,11 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Category</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/category/create') }}" class="btn btn-success btn-sm" title="Add New Category">
+                        <a href="{{ url('/vendor/category/create') }}" class="btn btn-success btn-sm" title="Add New Category">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a>
 
-                        {!! Form::open(['method' => 'GET', 'url' => '/admin/category', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
+                        {!! Form::open(['method' => 'GET', 'url' => '/vendor/category', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" placeholder="Search..." value="{{request('search')}}">
                             <span class="input-group-btn">
@@ -46,22 +46,22 @@
                                                 <img src="{{ $item->category_avatar }}" class="img-circle" style="height: 100px;width: 100px;">
                                             </a>
                                         </td>
-                                        <!-- <td>
-                                            <a class="thumbnail" href="{{ $item->category_avatar }}"><img src="{{ $item->category_avatar }}" width="100px" height="66px" border="0" />
+<!--                                         <td>
+                                            <a class="thumbnail" href="{{ $item->category_avatar }}">
+                                                <img src="{{ $item->category_avatar }}" width="100px" height="66px" border="0" />
                                                 <span>
                                                     <img src="{{ $item->category_avatar }}" />
                                                 </span>
                                             </a>
                                         </td> -->
-
                                         <td>{{ $item->category_name }}</td>
                                         <td>{{ $item->vendor_name }}</td>
                                         <td>
-                                            <a href="{{ url('/admin/category/' . $item->id) }}" title="View Category"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                            <a href="{{ url('/admin/category/' . $item->id . '/edit') }}" title="Edit Category"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            <a href="{{ url('/vendor/category/' . $item->id) }}" title="View Category"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            <a href="{{ url('/vendor/category/' . $item->id . '/edit') }}" title="Edit Category"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                                             {!! Form::open([
                                                 'method'=>'DELETE',
-                                                'url' => ['/admin/category', $item->id],
+                                                'url' => ['/vendor/category', $item->id],
                                                 'style' => 'display:inline'
                                             ]) !!}
                                                 {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(

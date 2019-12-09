@@ -9,7 +9,7 @@
                     <div class="panel-heading">Order Details {{-- {{ $order[0]->order_id }} --}}</div>
                     <div class="panel-body">
 
-                        <a href="{{ url('/vendor/order') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/admin/order') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <!-- <a href="{{ url('/vendor/order/' . $order[0]->order_id . '/edit') }}" title="Edit Order"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                         {!! Form::open([
                             'method'=>'DELETE',

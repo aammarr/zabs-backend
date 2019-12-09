@@ -55,21 +55,24 @@ class OrderController extends Controller
         $user_id        = $request['user']->id;
         $vendor_id      = $request->vendor_id;
         
+        foreach($request->cart_ids as $c){
+            $cart       = Cart::find($c);
+            
+            if($cart === NULL){
+
+                return $this->sendResponse(Config::get('constants.status.OK'),"There is no cart with this Id", null);
+
+            }
+            // else{
+                
+            //     dd("Not empty");
+            // }
+        }
+
 
         $cartIds = implode(',',$request->cart_ids);
         $cartIds = $request->cart_ids;
-
-        /*foreach($cartIds as $c){
-            $cart       = Cart::find($c);
-            if($cart === NULL){
-
-                dd("Yes empty");
-
-            }else{
-                
-                dd("Not empty");
-            }
-        }*/
+        
 
         $o      =  new Order();
 
