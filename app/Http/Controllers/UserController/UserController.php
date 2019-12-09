@@ -70,22 +70,37 @@ class UserController extends Controller
         $email      = Auth::User()->email;
         $password   = Auth::User()->password;
 
-        if (Auth::attempt(['email' => $email, 'password' => $oldPassword, 'role_id' => 2]))
-        {
+        if (Auth::attempt(['email' => $email, 'password' => $oldPassword, 'role_id' => 1]))
+        {   
             if( $new_password != $confirm_password){
-                dd('Passwords are not matched!! ');
+                return redirect('/change_password')->with('warning_message', 'New Password donot match!');
+            
             }else{
                 
                 $user = Auth::User();
                 $user->password = bcrypt($new_password);
                 $user->save();
 
-                return redirect('/admin/user');
+                return redirect('/home')->with('flash_message', 'Password Successfuly Changed!');
+            }
+
+        }
+        else if (Auth::attempt(['email' => $email, 'password' => $oldPassword, 'role_id' => 2]))
+        {   
+            if( $new_password != $confirm_password){
+                return redirect('/change_password')->with('warning_message', 'New Password donot match!');
+            }else{
+                
+                $user = Auth::User();
+                $user->password = bcrypt($new_password);
+                $user->save();
+
+                return redirect('/home')->with('flash_message', 'Password Successfuly Changed!');
             }
 
         }
         else{
-            
+            return redirect('/change_password')->with('warning_message', 'Password Entered Incorrect!');
             dd('Password Entered Incorrect');
 
         }
