@@ -25,7 +25,7 @@
             @endif
         @endforeach
     @elseif(Auth::user()->role_id==2)
-        @foreach($laravelAdminMenus[1]->menus as $section)
+        @foreach($laravelAdminMenus->menus as $section)
             @if($section->items)
                 <div class="panel panel-default panel-flush">
                     <div class="panel-heading">
