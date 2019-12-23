@@ -1,7 +1,7 @@
 <div class="col-md-3">
 
     @if(Auth::user()->role_id==1)
-        @foreach($laravelAdminMenus[0]->menus as $section)
+        @foreach($laravelAdminMenus->menus as $section)
             @if($section->items)
                 <div class="panel panel-default panel-flush">
                     <div class="panel-heading">

@@ -107,7 +107,7 @@ class UserController extends Controller
         $password   = Input::get('password');
         $vendor_id  = Input::get('vendor_id');
 
-        if(Auth::attempt(['email'=>$email, 'password'=>$password, 'role_id'=>3, 'vendor_id'=>$vendor_id])){
+        if(Auth::attempt(['email'=>$email, 'password'=>$password, 'role_id'=>3])){
                 
                 $userAuth   = Auth::user();
 
@@ -163,6 +163,31 @@ class UserController extends Controller
                     Config::get('error.code.NOT_FOUND')
                 );
             }
+    }
+
+    //---------------------------------------
+
+    public function myProfile(Request $request){
+        $user = $request->all();
+        dd($user);
+
+        $user = User::where([
+                            'email'=>$userAuth->email
+                        ])
+                        ->get([
+                            'access_token',
+                            'id',
+                            'email',
+                            'first_name',
+                            'last_name',
+                            'phone',
+                            'city',
+                            'country',
+                            'role_id',
+                            'device'
+                        ])->first();
+
+
     }
 
     //---------------------------------------
