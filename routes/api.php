@@ -44,7 +44,8 @@ Route::group(['prefix'=>'user','middleware'=>'ApiAuth','namespace'=>'Api'],funct
     Route::get('/vendors','VendorController@index');
 
     Route::get('/{vendor_id}/categories','CategoryController@index');
-
+    Route::get('/vendor/{id}','VendorController@getVendorById');
+    
     Route::get('/{vendor_id}/products','ProductController@prodByVendorId');    
     Route::get('/{vendor_id}/products/{category_id}','ProductController@prodByVendorNcategoryId');    
     Route::get('/{vendor_id}/product/{product_id}','ProductController@prodByProdId');    
