@@ -17,7 +17,7 @@ class CreateVendorTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->nullable();
             $table->string('name')->nullable();
-            $table->string('decription')->nullable();
+            $table->string('description')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->string('city')->nullable();

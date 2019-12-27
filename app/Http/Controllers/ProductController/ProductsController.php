@@ -93,7 +93,7 @@ class ProductsController extends Controller
             $categories = Category::where('vendor_id',$vendor_id)->pluck('category_name','id');
         }
 
-        return view('products.create', compact('categories','vendors'));
+        return view('products.create', compact('categories'));
         // return view('products.create')->with('categories',$categories);
     }
 

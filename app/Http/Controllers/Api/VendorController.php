@@ -32,6 +32,17 @@ class VendorController extends Controller
         }
     }
 
+    public function getVendorById(Request $request){
+        $vendor_id = $request->vendor_id;
+        $response = Vendor::findOrFail($vendor_id);
+        if($response){
+            return $this->sendResponse(Config::get('constants.status.OK'),$response, null);
+        }
+        else{
+            return $this->sendResponse(Config::get('constants.status.OK'),null, null);
+        }
+    }
+
     public function prodByVendorNcategoryId(Request $request)
     {   
         $vendor_id      = $request->vendor_id;

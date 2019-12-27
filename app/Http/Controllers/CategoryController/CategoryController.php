@@ -57,7 +57,7 @@ class CategoryController extends Controller
     public function create()
     {
         $vendors = Vendor::pluck('name','id');
-        return view('category.create', compact('categories','vendors'));
+        return view('category.create', compact('vendors'));
     }
 
     /**

@@ -15,6 +15,7 @@ class Category extends Model
 
 	public function getAllCategories($vendor_id){
 		$data = DB::table('category as c')
+				->whereNull('deleted_at')
     			->where('c.vendor_id',$vendor_id)
     			->select('c.*')
     			->get();

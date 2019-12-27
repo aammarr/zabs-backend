@@ -47,7 +47,7 @@ class ValidateClient
         $access_token = str_replace("Bearer","",$access_token);
 
         if($access_token){
-            $user = \App\Model\User::where('access_token',$access_token)->first();
+            $user = \App\User::where('access_token',$access_token)->first();
             
             if($user){
                 $request->merge(array("user"=>$user));
