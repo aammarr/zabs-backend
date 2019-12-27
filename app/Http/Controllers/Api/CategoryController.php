@@ -27,7 +27,7 @@ class CategoryController extends Controller
         $vendor_id      = $request->vendor_id;
         $c = new Category();
         $response = $c->getAllCategories($vendor_id);
-
+        
         if($response){
             return $this->sendResponse(Config::get('constants.status.OK'),$response, null);
         }

@@ -23,6 +23,22 @@ class BannerController extends Controller
      */
     public function index(Request $request)
     {
+        // $vendor_id = $request->vendor_id;
+
+        $banners = Banner::all();
+        // $banners = $b->geBannersbyVendor_id($vendor_id);
+        
+        if($banners){
+            return $this->sendResponse(Config::get('constants.status.OK'),$banners, null);
+        }
+        else{
+            return $this->sendResponse(Config::get('constants.status.OK'),null, null);
+        }
+
+
+    }
+
+    public function getBannersByVendorId(Request $request){
         $vendor_id = $request->vendor_id;
 
         $b = new Banner();
@@ -34,8 +50,6 @@ class BannerController extends Controller
         else{
             return $this->sendResponse(Config::get('constants.status.OK'),null, null);
         }
-
-
     }
 
     /**
