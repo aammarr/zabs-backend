@@ -4,12 +4,13 @@ namespace App\Http\Controllers\VendorController;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
-use App\User;
-use App\Vendor;
-use App\Product;
-use App\Category;
 use Illuminate\Http\Request;
+use App\Category;
+use App\Product;
+use App\Vendor;
+use App\User;
+use Input;
+
 
 class VendorController extends Controller
 {
@@ -77,6 +78,23 @@ class VendorController extends Controller
         $userData['country']  = $requestData['country'];
         $userData['role_id']  = 2;
         $userData['created_at']  = date('Y-m-d H:i:s');
+        
+        // vendor image
+        if(Input::file('vendor_avatar')){
+            $avatarDocument = Input::file('vendor_avatar');
+            $avatarfile = time() ."." . $avatarDocument->getClientOriginalExtension();
+            $nameAvatar = url('images/vendor_avatar').'/'.$avatarfile;
+            $pathAvatar = $nameAvatar;
+            
+            if(Input::file('vendor_avatar')->move('images/vendor_avatar/', $pathAvatar)) {
+
+                $vendor_avatar = $nameAvatar;
+                $requestData['vendor_avatar'] = $vendor_avatar;
+            }
+
+        }else{
+            $vendor_avatar=null;
+        }
 
         User::insert($userData);
         $user = User::where('email',$userData['email'])->first();
@@ -89,11 +107,15 @@ class VendorController extends Controller
         $vendorData['city']  = $requestData['city'];
         $vendorData['country']  = $requestData['country'];
         $vendorData['created_at']  = date('Y-m-d H:i:s');
+        $vendorData['avatar']  = $vendor_avatar;
+        $vendorData['background_image']  = $vendor_avatar;
         Vendor::insert($vendorData);
         $vendor = Vendor::where('user_id',$vendorData['user_id'])->first();
         
         User::where('id', $user['id'])
-          ->update(['vendor_id' => $vendor['id']]);
+          ->update(['vendor_id' => $vendor['id'],
+                    'avatar'=> $vendor_avatar
+                    ]);
         
         return redirect('admin/vendor')->with('flash_message', 'Vendor added!');
     }
