@@ -68,8 +68,17 @@ class Product extends Model
                     'p.stock'
                 )
     			->orderBy('p.id','desc')
-                ->get();
-
-    	return $data;
+                ->first();
+        $data->product_pictures=[];
+        $prod_pic=[];
+        for($i=1;$i<=5;$i++){
+            $temp ='product_pic_'.$i;
+            if( $data->$temp!=null){
+                $prod_pic[] = $data->$temp;
+            }
+        }
+        $data->product_pictures = $prod_pic;
+        
+        return $data;
     }
 }

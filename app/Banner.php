@@ -37,8 +37,12 @@ class Banner extends Model
                 ->where('b.vendor_id',$vendor_id)
                 ->select('b.id','b.vendor_id','b.banner')   
                 ->get();
+        $response=[];
+        foreach ($data as $banner) {
+            $response[]= $banner->banner;
+        }
 
-        return $data;
+        return $response;
     }
 
 

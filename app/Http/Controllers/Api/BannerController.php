@@ -32,7 +32,7 @@ class BannerController extends Controller
             return $this->sendResponse(Config::get('constants.status.OK'),$banners, null);
         }
         else{
-            return $this->sendResponse(Config::get('constants.status.OK'),null, null);
+            return $this->sendResponse(Config::get('constants.status.OK'),$banners, null);
         }
 
 
@@ -43,12 +43,12 @@ class BannerController extends Controller
 
         $b = new Banner();
         $banners = $b->geBannersbyVendor_id($vendor_id);
-    
+        
         if($banners){
             return $this->sendResponse(Config::get('constants.status.OK'),$banners, null);
         }
         else{
-            return $this->sendResponse(Config::get('constants.status.OK'),null, null);
+            return $this->sendResponse(Config::get('constants.status.OK'),$banners, null);
         }
     }
 
