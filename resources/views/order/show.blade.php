@@ -6,23 +6,12 @@
 
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Order Details {{-- {{ $order[0]->order_id }} --}}</div>
+                    <div class="panel-heading">Order Details {{-- {{ $order->order_id }} --}}</div>
                     <div class="panel-body">
 
                         <a href="{{ url('/vendor/order') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                        <!-- <a href="{{ url('/vendor/order/' . $order[0]->order_id . '/edit') }}" title="Edit Order"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
-                        {!! Form::open([
-                            'method'=>'DELETE',
-                            'url' => ['vendor/order', $order[0]->order_id],
-                            'style' => 'display:inline'
-                        ]) !!}
-                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
-                                    'type' => 'submit',
-                                    'class' => 'btn btn-danger btn-xs',
-                                    'title' => 'Delete Order',
-                                    'onclick'=>'return confirm("Confirm delete?")'
-                            ))!!}
-                        {!! Form::close() !!} -->
+                   
+                        {!! Form::close() !!} 
                         <br/>
                         <br/>
 
@@ -61,18 +50,18 @@
                             <tr>
                                 <th colspan="4"><span class="pull-left"></span></th>
                                 <th>Products Amount </th>
-                                <th>PKR {{number_format($order[$key]->total_amount-$order[$key]->delivery_charges,2,".",",")}}/= </th>
+                                <th>AED {{number_format($order[$key]->total_amount-$order[$key]->delivery_charges,2,".",",")}}/= </th>
                             </tr>
                             <tr>
                                 <th colspan="4"><span class="pull-left"></span></th>
                                 <th>Delivery Charges</th>
-                                <th>PKR {{ number_format($order[$key]->delivery_charges,2,".",",") }}/= </td></th>
+                                <th>AED {{ number_format($order[$key]->delivery_charges,2,".",",") }}/= </td></th>
                             </tr>
 
                             <tr>
                                 <th colspan="4"><span class="pull-left"></span></th>
                                 <th>Total Amount</th>
-                                <th>PKR {{ number_format($order[$key]->total_amount,2,".",",") }}/= </td></th>
+                                <th>AED {{ number_format($order[$key]->total_amount,2,".",",") }}/= </td></th>
                             </tr>
 
                         </table>

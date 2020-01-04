@@ -18,6 +18,9 @@
 			}, {
 				"title": "Banner",
 				"url": "\/vendor\/banner"
+			}, {
+				"title": "Settings",
+				"url": "\/vendor\/settings"
 			}
 		]
 	}]

@@ -63,8 +63,31 @@ class Order extends Model
                 )
                 ->get();
 
-
         return $order;
+
+    }
+
+    public function orderAccept($order_id){
+        $data = $this::findOrFail($order_id);
+        if($data){
+            $this::where('id',$order_id)->update(['status'=>'accepted']);
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
+    public function orderReject($order_id){
+        $data = $this::findOrFail($order_id);
+        if($data){
+            $this::where('id',$order_id)->update(['status'=>'rejected']);
+            return true;
+        }
+        else{
+            return false;
+        }
 
     }
 }

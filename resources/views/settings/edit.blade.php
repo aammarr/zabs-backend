@@ -9,7 +9,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Edit Setting #{{ $setting->id }}</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/settings') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/vendor/settings') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -23,7 +23,7 @@
 
                         {!! Form::model($setting, [
                             'method' => 'PATCH',
-                            'url' => ['/admin/settings', $setting->id],
+                            'url' => ['/vendor/settings', $setting->id],
                             'class' => 'form-horizontal',
                             'files' => true
                         ]) !!}

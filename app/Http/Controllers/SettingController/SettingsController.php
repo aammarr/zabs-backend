@@ -19,6 +19,7 @@ class SettingsController extends Controller
      */
     public function index(Request $request)
     {
+
         $keyword = $request->get('search');
         $perPage = 25;
         $vendor_id = Auth::user()->vendor_id;
@@ -35,7 +36,6 @@ class SettingsController extends Controller
                         ->select('u.email','v.name','settings.*')
                         ->paginate($perPage);
         }
-
 
         // if(Auth::user()->role_id == 1){
             
@@ -78,7 +78,7 @@ class SettingsController extends Controller
         
         Setting::create($requestData);
 
-        return redirect('admin/settings')->with('flash_message', 'Setting added!');
+        return redirect('vendor/settings')->with('flash_message', 'Setting added!');
     }
 
     /**
@@ -134,7 +134,7 @@ class SettingsController extends Controller
         $setting->t_n_c =$tnc;
         $setting->save();
 
-        return redirect('admin/settings')->with('flash_message', 'Setting updated!');
+        return redirect('vendor/settings')->with('flash_message', 'Setting updated!');
     }
 
     /**
@@ -148,6 +148,6 @@ class SettingsController extends Controller
     {
         Setting::destroy($id);
 
-        return redirect('admin/settings')->with('flash_message', 'Setting deleted!');
+        return redirect('vendor/settings')->with('flash_message', 'Setting deleted!');
     }
 }

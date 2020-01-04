@@ -54,10 +54,9 @@ class OrderController extends Controller
 
         $user_id        = $request['user']->id;
         $vendor_id      = $request->vendor_id;
-        
+
         foreach($request->cart_ids as $c){
             $cart       = Cart::find($c);
-            
             if($cart === NULL){
 
                 return $this->sendResponse(Config::get('constants.status.OK'),"There is no cart with this Id", null);
@@ -69,13 +68,10 @@ class OrderController extends Controller
             // }
         }
 
-
         $cartIds = implode(',',$request->cart_ids);
         $cartIds = $request->cart_ids;
         
-
         $o      =  new Order();
-
         $o->user_id     = $user_id;
         $o->vendor_id   = $vendor_id;
         $o->order_time  = date("Y-m-d h:i:s");
@@ -87,13 +83,14 @@ class OrderController extends Controller
         $o->address         = $request->address;
         $o->note            = $request->note;
         $totalPrice         = $request->delivery_charges;
-        $o->save();
+        $o->total_amount    = $request->total_amount;
+        
+        // $o->save();
 
         foreach($cartIds as $c){
             
             $cart       = Cart::find($c);
             $product    = Product::find($cart->product_id);
-            
             $op = new OrderProduct();        
             
             $op->user_id            = $user_id;

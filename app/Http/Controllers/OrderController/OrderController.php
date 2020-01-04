@@ -19,6 +19,7 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
+
         $keyword = $request->get('search');
         $perPage = 25;
         $vendor_id = Auth::user()->vendor_id;
@@ -77,10 +78,9 @@ class OrderController extends Controller
     public function show($id)
     {
         // $order = Order::find($id);
-        // dd($order);
+        
         $o      = new Order();
         $order  = $o->getOrderDetailsById($id);
-        
         return view('order.show', compact('order'));
     }
 
@@ -130,4 +130,30 @@ class OrderController extends Controller
 
         return redirect('admin/order')->with('flash_message', 'Order deleted!');
     }
+
+    public function acceptOrder($order_id)
+    {
+        $orderObj = new Order();
+        $response = $orderObj->orderAccept($order_id);
+        if($response==true){
+            return redirect('vendor/order')->with('flash_message', 'Order Accepted Succesfully!');
+        }
+        else{
+            return redirect('vendor/order')->with('warning_message', 'Something went wrong!');
+        }
+    }
+
+    public function rejectOrder($order_id)
+    {
+
+        $orderObj = new Order();
+        $response = $orderObj->orderReject($order_id);
+        if($response==true){
+            return redirect('vendor/order')->with('flash_message', 'Order Rejected Succesfully!');
+        }
+        else{
+            return redirect('vendor/order')->with('warning_message', 'Something went wrong!');
+        }
+    }
+
 }

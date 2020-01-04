@@ -9,11 +9,11 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Settings</div>
                     <div class="panel-body">
-                        <!-- <a href="{{ url('/admin/settings/create') }}" class="btn btn-success btn-sm" title="Add New Setting">
+                        <!-- <a href="{{ url('/vendor/settings/create') }}" class="btn btn-success btn-sm" title="Add New Setting">
                             <i class="fa fa-plus" aria-hidden="true"></i> Add New
                         </a> -->
 
-                        {!! Form::open(['method' => 'GET', 'url' => '/admin/settings', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
+                        {!! Form::open(['method' => 'GET', 'url' => '/vendor/settings', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
                         <div class="input-group">
                             <input type="text" class="form-control" name="search" placeholder="Search..." value="{{request('search')}}">
                             <span class="input-group-btn">
@@ -45,11 +45,11 @@
                                         <td>{{ $item->delivery_fee }}</td>
                                         <td>{{ $item->t_n_c }}</td>
                                         <td>
-                                            <a href="{{ url('/admin/settings/' . $item->id) }}" title="View Setting"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                            <a href="{{ url('/admin/settings/' . $item->id . '/edit') }}" title="Edit Setting"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            <a href="{{ url('/vendor/settings/' . $item->id) }}" title="View Setting"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            <a href="{{ url('/vendor/settings/' . $item->id . '/edit') }}" title="Edit Setting"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
                                             <!-- {!! Form::open([
                                                 'method'=>'DELETE',
-                                                'url' => ['/admin/settings', $item->id],
+                                                'url' => ['/vendor/settings', $item->id],
                                                 'style' => 'display:inline'
                                             ]) !!}
                                                 {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(

@@ -28,6 +28,8 @@ Route::group(['prefix'=>'user','middleware'=>'auth.client','namespace'=>'Api'],f
  
     Route::get('/faqs','UserController@faqs');
     Route::get('/tnc','UserController@tnc');
+    Route::get('/tnc/{vendor_id}','UserController@tncByVendorId');
+    Route::get('/delivery_fee/{vendor_id}','UserController@deliveryFeeByVendorId');
     Route::get('/privacyPolicy','UserController@privacy_policy');
 
 });

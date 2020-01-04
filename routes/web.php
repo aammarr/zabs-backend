@@ -66,10 +66,12 @@ Route::group(['prefix'=>'vendor','middleware'=>'vendor.auth'],function(){
 
 	Route::resource('/category', 'CategoryController\\CategoryController');
 	Route::resource('/products', 'ProductController\\ProductsController');
-	// Route::resource('/contact-us', 'ContactController\\ContactUsController');
+	Route::resource('/contact-us', 'ContactController\\ContactUsController');
 	Route::resource('/settings', 'SettingController\\SettingsController');
 	Route::resource('/banner', 'BannerController\\BannerController');	
 	Route::resource('/order', 'OrderController\\OrderController');
+	Route::get('/order/{order_id}/accept', 'OrderController\\OrderController@acceptOrder');
+	Route::get('/order/{order_id}/reject', 'OrderController\\OrderController@rejectOrder');
 
 	Route::get('/products/inStock/{id}', 'ProductController\\ProductsController@inStock');
 	Route::get('/products/outStock/{id}', 'ProductController\\ProductsController@outStock');

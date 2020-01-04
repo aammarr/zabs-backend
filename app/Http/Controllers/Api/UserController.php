@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 use App\User;
 use App\Faqs;
-use App\TermsNCondition;
+use App\Models\Settings;
 use App\PrivacyPolicy;
 use Config;
 // use Mail;
@@ -315,13 +315,47 @@ class UserController extends Controller
 
     //---------------------------------------
 
-    public function tnc(Request $request){
+    // public function tnc(Request $request){
 
-        $limit = $request->limit;
-        $f          = new TermsNCondition();
-        $response   = $f->getTnC($limit);
+    //     $limit = $request->limit;
+    //     // $f          = new TermsNCondition();
+    //     // $response   = $f->getTnC($limit);
 
-        return $this->sendResponse(Config::get('constants.status.OK'),$response,null);
+    //     return $this->sendResponse(Config::get('constants.status.OK'),$response,null);
+    // }
+
+    //---------------------------------------
+    public function tncByVendorId(Request $request){
+
+        $vendor_id  = $request->vendor_id;
+
+        $sObj          = new Settings();
+        $response   = $sObj->getTnC($vendor_id);
+
+         if($response){
+            return $this->sendResponse(Config::get('constants.status.OK'),$response, null);
+
+        }   
+        else{
+            return $this->sendResponse(Config::get('constants.status.OK'),null, null);
+        }    
+    }
+
+    //---------------------------------------
+    public function deliveryFeeByVendorId(Request $request){
+
+        $vendor_id  = $request->vendor_id;
+
+        $sObj          = new Settings();
+        $response   = $sObj->getDeliveryFee($vendor_id);
+
+         if($response){
+            return $this->sendResponse(Config::get('constants.status.OK'),$response, null);
+
+        }   
+        else{
+            return $this->sendResponse(Config::get('constants.status.OK'),null, null);
+        }    
     }
 
     //---------------------------------------

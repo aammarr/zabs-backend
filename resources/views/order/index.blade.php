@@ -41,11 +41,23 @@
                                     <tr>
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->phone }}</td>
-                                        <td>{{ "PKR ".$item->total_amount }}</td>
+                                        <td>{{ "AED ".$item->total_amount }}</td>
                                         <td>
-                                            <a href="{{ url('/vendor/order/' . $item->id) }}" title="View Order"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                            <a href="{{ url('/vendor/order/' . $item->id . '/accept') }}" title="Accept Order"><button class="btn btn-success btn-xs"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Accept</button></a>
-                                            <a href="{{ url('/vendor/order/' . $item->id . '/reject') }}" title="Reject Order"><button class="btn btn-danger btn-xs"><i class="fa fa-minus-square-o" aria-hidden="true"></i> Reject</button></a>
+                                            <a href="{{ url('/vendor/order/' . $item->id) }}" title="View Order">
+                                                <button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View
+                                                </button>
+                                            </a>
+                                            @if($item->status == 'pending')
+                                            
+                                                <a href="{{ url('/vendor/order/' . $item->id . '/accept') }}" title="Accept Order">
+                                                    <button class="btn btn-success btn-xs"><i class="fa fa-plus-square-o" aria-hidden="true"></i> Accept
+                                                    </button>
+                                                </a>
+                                                <a href="{{ url('/vendor/order/' . $item->id . '/reject') }}" title="Reject Order">
+                                                    <button class="btn btn-danger btn-xs"><i class="fa fa-minus-square-o" aria-hidden="true"></i> Reject
+                                                    </button>
+                                                </a>
+                                            @endif
                                             <!--{!! Form::open([
                                                 'method'=>'DELETE',
                                                 'url' => ['/vendor/order', $item->id],
