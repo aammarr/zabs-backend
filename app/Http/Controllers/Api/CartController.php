@@ -44,26 +44,25 @@ class CartController extends Controller
 
     public function postCart(Request $request){
         
+
         $user_id        = $request['user']->id;
         $product_id     = $request->product_id;
         $quantity       = $request->quantity;
         // $product_price  = $request->product_price;
         // $total_price    = $request->total_price;
         
-
         $c = new Cart();
-
         $c->user_id         = $user_id;
         $c->product_id      = $product_id;
         $product = Product::where('deleted_at',null)
                             ->where('id',$product_id)
                             ->select('*')
                             ->first();
-
         $c->quantity        = $quantity;
         $c->product_price   = $product->product_price;
         $c->total_price     = $product->product_price*$quantity;
         $c->save();
+
 
         return $this->sendResponse(Config::get('constants.status.OK'),null, null);
     }
@@ -137,7 +136,7 @@ class CartController extends Controller
             
             $cart->delete($cart_id);
 
-            return $this->sendResponse(Config::get('constants.status.OK'),null, null);
+            return $this->sendResponse(Config::get('constants.status.OK'),'Cart has been succesfully deleted.', null);
         }
         else{
             $error = "No Cart Found"; 

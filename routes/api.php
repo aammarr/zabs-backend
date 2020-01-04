@@ -66,6 +66,8 @@ Route::group(['prefix'=>'user','middleware'=>'ApiAuth','namespace'=>'Api'],funct
     Route::get('/tnc','UserController@tnc');
     Route::get('/privacyPolicy','UserController@privacy_policy');
 
+    Route::get('my-favourites','FavoriteController@getMyFavorites');
+    Route::post('my-favourites','FavoriteController@update');
 
     Route::get('/search/{keyWord}','Api\SearchController@search');
     // Route::get('/user/search','Api\SearchController@searchNumber');

@@ -18,6 +18,7 @@ class CreateOrderTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->nullable();
             $table->integer('vendor_id')->nullable();
+            $table->integer('cart_id')->nullable();
             $table->datetime('order_time')->nullable();
             $table->double('delivery_charges')->nullable();
             $table->double('total_amount')->nullable();
