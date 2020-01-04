@@ -14,7 +14,11 @@ class Favorites extends Model
 
     public function getUserFavorites($user_id){
 
-    	$data = $this::where('user_id',$user_id)->get();
+    	$data = $this::leftJoin('products as p','p.id','favorites.product_id')
+    			->where('favorites.user_id',$user_id)
+    			->select('p.*')
+    			->get();
+    			
     	return $data;
     }
 
