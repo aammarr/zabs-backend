@@ -119,6 +119,22 @@ class OrderController extends Controller
 
         return $this->sendResponse(Config::get('constants.status.OK'),null, null);
     }
+    
+    /*************************************/
+
+    public function orderDetails(Request $request){
+
+        $order_id = $request->order_id;
+        $opObj      =  new OrderProduct();
+        $response = $opObj->getOrderDetails($order_id);
+        
+        if($response){
+            return $this->sendResponse(Config::get('constants.status.OK'),$response, null);
+        }
+        else{
+            return $this->sendResponse(Config::get('constants.status.OK'),null, null);
+        }
+    }
 
 
     /**

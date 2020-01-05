@@ -58,6 +58,7 @@ Route::group(['prefix'=>'user','middleware'=>'ApiAuth','namespace'=>'Api'],funct
 
     Route::get('/orders','OrderController@getUserOrders');
     Route::post('/{vendor_id}/order','OrderController@postOrder');
+    Route::get('/order_details/{order_id}','OrderController@orderDetails');
 
     Route::post('/contact_us','ContactController@index');
 
