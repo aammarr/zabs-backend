@@ -168,25 +168,34 @@ class UserController extends Controller
     //---------------------------------------
 
     public function myProfile(Request $request){
-        $user = $request->all();
-        dd($user);
+        $user = $request->all()['user']->toArray();
+        
+        // $user = User::where([
+        //                     'email'=>$user->email
+        //                 ])
+        //                 ->get([
+        //                     'access_token',
+        //                     'id',
+        //                     'email',
+        //                     'first_name',
+        //                     'last_name',
+        //                     'phone',
+        //                     'city',
+        //                     'country',
+        //                     'role_id',
+        //                     'device'
+        //                 ])->first();
 
-        $user = User::where([
-                            'email'=>$userAuth->email
-                        ])
-                        ->get([
-                            'access_token',
-                            'id',
-                            'email',
-                            'first_name',
-                            'last_name',
-                            'phone',
-                            'city',
-                            'country',
-                            'role_id',
-                            'device'
-                        ])->first();
-
+        if($user){
+            return $this->sendResponse(Config::get('constants.status.OK'),$user, null);
+        }
+        else{
+            return $this->sendResponse( Config::get('error.code.NOT_FOUND'),
+                    null,
+                    [Config::get('error.message.USER_NOT_FOUND')],
+                    Config::get('error.code.NOT_FOUND')
+                );
+        }
 
     }
 

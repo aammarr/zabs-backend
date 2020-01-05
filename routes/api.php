@@ -56,7 +56,7 @@ Route::group(['prefix'=>'user','middleware'=>'ApiAuth','namespace'=>'Api'],funct
     Route::post('/cart','CartController@postCart');
     Route::delete('/cart/{cart_id}','CartController@destroy');
 
-    Route::get('/{vendor_id}/orders','OrderController@getOrders');
+    Route::get('/orders','OrderController@getUserOrders');
     Route::post('/{vendor_id}/order','OrderController@postOrder');
 
     Route::post('/contact_us','ContactController@index');

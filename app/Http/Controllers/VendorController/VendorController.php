@@ -164,24 +164,44 @@ class VendorController extends Controller
 		]);
         $requestData = $request->all();
         
+
+        // vendor image
+        if(Input::file('vendor_avatar')){
+            $avatarDocument = Input::file('vendor_avatar');
+            $avatarfile = time() ."." . $avatarDocument->getClientOriginalExtension();
+            $nameAvatar = url('images/vendor_avatar').'/'.$avatarfile;
+            $pathAvatar = $nameAvatar;
+            
+            if(Input::file('vendor_avatar')->move('images/vendor_avatar/', $pathAvatar)) {
+
+                $vendor_avatar = $nameAvatar;
+                $requestData['vendor_avatar'] = $vendor_avatar;
+            }
+
+        }else{
+            $vendor_avatar=null;
+        }
+
         $updatedData['name'] = $requestData['name'];
         $updatedData['description'] = $requestData['description'];
         $updatedData['address'] =    $requestData['address'];
         $updatedData['city'] =    $requestData['city'];
         $updatedData['country'] =    $requestData['country'];
         $updatedData['phone'] =    $requestData['phone'];
-        // $updatedData['avatar'] =    $requestData['avatar'];
+        $updatedData['avatar'] =    $vendor_avatar;
+        $updatedData['background_image'] =    $vendor_avatar;
 
         $vendor = Vendor::findOrFail($id);
 
         $vendor->update($updatedData);
         
-        $updatedUserData['first_name'] = $requestData['name'];
-        $updatedUserData['address'] =    $requestData['address'];
-        $updatedUserData['city'] =    $requestData['city'];
-        $updatedUserData['country'] =    $requestData['country'];
-        $updatedUserData['phone'] =    $requestData['phone'];
-        $updatedUserData['email'] = $requestData['email'];
+        $updatedUserData['first_name']  = $requestData['name'];
+        $updatedUserData['address']     =    $requestData['address'];
+        $updatedUserData['city']        =    $requestData['city'];
+        $updatedUserData['country']     =    $requestData['country'];
+        $updatedUserData['phone']       =    $requestData['phone'];
+        $updatedUserData['email']       = $requestData['email'];
+        $updatedUserData['avatar']      = $vendor_avatar;
 
         $user = User::where('vendor_id',$id);
         $user->update($updatedUserData);

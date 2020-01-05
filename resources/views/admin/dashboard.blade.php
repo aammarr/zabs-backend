@@ -48,21 +48,7 @@
 <script>
 window.onload = function() {
  
-var chart = new CanvasJS.Chart("chartContainer2", {
-    animationEnabled: true,
-    theme: "light2",
-    title:{
-        text: "Total Numbers"
-    },
-    axisY: {
-        title: "Numbers"
-    },
-    data: [{
-        type: "column",
-        yValueFormatString: "#,##0.## tonnes",
-        dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-    }]
-});
+
 chart.render();
  
 }
@@ -73,7 +59,7 @@ chart.render();
 window.onload = function() {
  
  
-var chart = new CanvasJS.Chart("chartContainer1", {
+var chart1 = new CanvasJS.Chart("chartContainer1", {
     animationEnabled: true,
     title: {
         text: "Usage Share of Desktop Browsers"
@@ -88,7 +74,27 @@ var chart = new CanvasJS.Chart("chartContainer1", {
         dataPoints: <?php  echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
     }]
 });
-chart.render();
+
+
+var chart2 = new CanvasJS.Chart("chartContainer2", {
+    animationEnabled: true,
+    theme: "light2",
+    title:{
+        text: "Total Numbers"
+    },
+    axisY: {
+        title: "Numbers"
+    },
+    data: [{
+        type: "column",
+        yValueFormatString: "#,##0.## tonnes",
+        dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+    }]
+});
+
+//calling
+chart1.render();
+chart2.render();
  
 }
 </script>
@@ -107,11 +113,11 @@ chart.render();
                     Your application's dashboard.
                 </div>
                 <body>
-                    <div id="chartContainer1" style="height: 350px; width: 50%;"></div>
+                    <div id="chartContainer1" style="height: 350px; width: 100%;"></div>
                         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
                 </body>
                 <body>
-                    <div id="chartContainer2" style="height: 350px; width: 50%;"></div>
+                    <div id="chartContainer2" style="height: 350px; width: 100%;"></div>
                         <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
                 </body>
             </div>

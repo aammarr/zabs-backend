@@ -31,7 +31,7 @@ class OrderController extends Controller
 
     /*************************************/
     
-    public function getOrders(Request $request){
+    public function getUserOrders(Request $request){
         
         $user_id        = $request['user']->id;
         $vendor_id      = $request->vendor_id;

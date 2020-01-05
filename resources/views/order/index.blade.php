@@ -33,6 +33,7 @@
                                         <th>Name</th>
                                         <th>Phone</th>
                                         <th>Amount</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -42,6 +43,7 @@
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->phone }}</td>
                                         <td>{{ "AED ".$item->total_amount }}</td>
+                                        <td>{{ ucfirst($item->status) }}</td>
                                         <td>
                                             <a href="{{ url('/vendor/order/' . $item->id) }}" title="View Order">
                                                 <button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View
