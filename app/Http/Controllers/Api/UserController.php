@@ -200,6 +200,35 @@ class UserController extends Controller
     }
 
     //---------------------------------------
+    
+    public function updateProfile(Request $request){
+
+        $user =  $request->all()['user']->toArray();
+        $user_id= $user['id'];
+        
+        $userData =User::findOrFail($user_id);
+
+        $input['first_name'] = $request->first_name;
+        $input['last_name'] = $request->last_name;
+        $input['phone'] = $request->phone;
+        $input['address'] = $request->address;
+        $input['city'] = $request->city;
+        $input['country'] = $request->country;
+
+        User::where('id', $user_id)
+          ->update(['first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'phone' => $request->phone,
+                    'address' => $request->address,
+                    'city' => $request->city,
+                    'country' => $request->country]);
+
+        $response =User::findOrFail($user_id);
+
+        return $this->sendResponse(Config::get('constants.status.OK'),$response, null);
+    }
+
+    //---------------------------------------
 
     public function getCode(Request $request){
         

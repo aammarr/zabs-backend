@@ -93,6 +93,13 @@ class FavoriteController extends Controller
         $favObj = new Favorites();
         $response = $favObj->updateUserFavorites($request);
 
+        if($response){
+            return $this->sendResponse(Config::get('constants.status.OK'),$response, null);
+
+        }   
+        else{
+            return $this->sendResponse(Config::get('constants.status.OK'),null, null);
+        } 
     }
 
     /**
